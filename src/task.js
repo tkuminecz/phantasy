@@ -1,6 +1,7 @@
 // @flow
 import { curry} from 'ramda';
 import { Maybe } from '@/maybe';
+import Promise from 'bluebird';
 
 type TaskExecutor<A, X> = (res: (a: A) => void, rej: (x: X) => void) => void;
 
@@ -67,15 +68,16 @@ export class Task<A, X> {
 		});
 	}
 
+	toMaybe(): Task<Maybe<A>, void> {
+		return this.andThen(val => Task.Success(Maybe.Just(val)))
+			.handleError(() => Task.Success(Maybe.Nothing));
+	}
+
 	/**
-	 * toMaybe :: Task a x ~> () -> Task (Maybe a) x
-	 *
-	 * Transforms the task into a task that always
-	 * succeeds with a Maybe
+	 * of :: a -> Task a x
 	 */
-	toMaybe(): Task<Maybe<A>, *> {
-		return this.andThen(a => Task.Success(Maybe.Just(a)))
-			.handleError(() => Task.Success(Maybe.Nothing()));
+	static of<B>(a: B): Task<B, *> {
+		return Task.Success(a);
 	}
 
 	/**
@@ -83,7 +85,7 @@ export class Task<A, X> {
 	 *
 	 * Returns a Task that always succeeds with the given value
 	 */
-	static Success(a: A): Task<A, *> {
+	static Success<B>(a: B): Task<B, *> {
 		return new Task(succ => succ(a));
 	}
 
@@ -92,8 +94,40 @@ export class Task<A, X> {
 	 *
 	 * Returns a Task that always fails with the given value
 	 */
-	static Fail(x: X): Task<*, X> {
+	static Fail<Y>(x: Y): Task<*, Y> {
 		return new Task((_, fail) => fail(x));
+	}
+
+	/**
+	 * fromPromise :: Promise a -> Task a Error
+	 *
+	 * Converts a promise to a task
+	 */
+	static fromPromise<B>(promise: Promise<B>): Task<B, Error> {
+		return new Task((succ, fail) => { promise.then(succ).catch(fail); });
+	}
+
+	/**
+	 * fromPromiseFunc :: (() -> Promise a) -> Task a Error
+	 */
+	static fromPromiseFunc<B>(promiseFn: () => Promise<B>): Task<B, Error> {
+		return new Task((succ, fail) => { promiseFn().then(succ).catch(fail); });
+	}
+
+	/**
+	 * fromCallback :: (x -> a -> ()) -> Task a x
+	 */
+	static fromCallback<B, Y>(fn: (cb: (e: Y, v: B) => void) => void): Task<B, Y> {
+		return new Task((succ, fail) => {
+			fn((err, val) => {
+				if (err) {
+					fail(err);
+				}
+				else {
+					succ(val);
+				}
+			});
+		});
 	}
 
 	/**
