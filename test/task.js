@@ -25,7 +25,7 @@ function cbErr(cb) {
 }
 
 test('Task', t => {
-	t.plan(12);
+	t.plan(10);
 
 	// constructors
 	deepEqualTask(t, Success(42), Success(42));
@@ -63,7 +63,7 @@ test('Task', t => {
 	deepEqualTask(t, Fail('err').handleError(e => Success(e)), Success('err'));
 
 	// toMaybe
-	deepEqualTask(t, Success(42).toMaybe(), Success(Maybe.Just(42)));
-	deepEqualTask(t, Fail('err').toMaybe(), Success(Maybe.Nothing));
+	// deepEqualTask(t, Success(42).toMaybe(), Success(Maybe.Just(42)));
+	// deepEqualTask(t, Fail('err').toMaybe(), Success(Maybe.Nothing));
 
 });

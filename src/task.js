@@ -103,14 +103,14 @@ export class Task<A, X> {
 	 *
 	 * Converts a promise to a task
 	 */
-	static fromPromise<B>(promise: Promise<B>): Task<B, Error> {
+	static fromPromise<B>(promise: Promise<B>): Task<B, ?Error> {
 		return new Task((succ, fail) => { promise.then(succ).catch(fail); });
 	}
 
 	/**
 	 * fromPromiseFunc :: (() -> Promise a) -> Task a Error
 	 */
-	static fromPromiseFunc<B>(promiseFn: () => Promise<B>): Task<B, Error> {
+	static fromPromiseFunc<B>(promiseFn: () => Promise<B>): Task<B, ?Error> {
 		return new Task((succ, fail) => { promiseFn().then(succ).catch(fail); });
 	}
 

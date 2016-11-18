@@ -16,7 +16,7 @@ export class Reader<E, A> {
 		return new Reader(env => next(this.runReader(env)).runReader(env));
 	}
 
-	static of<B>(val): Reader<any, B> {
+	static of<B>(val: B): Reader<any, B> {
 		return Reader.Asks(() => val);
 	}
 
