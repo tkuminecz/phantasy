@@ -153,7 +153,7 @@ export class Maybe<A> {
 	 * given function
 	 */
 	static lift<T, U>(f: (t: T) => U): (mt: Maybe<T>) => Maybe<U> {
-		return (mt) => mt.map(t => f(t));
+		return (mt) => mt.map(f);
 	}
 
 	/**
@@ -163,7 +163,7 @@ export class Maybe<A> {
 	 * that takes two maybes and applies the values to the
 	 * given function
 	 */
-	static lift2<T, U, V>(f: (t: T, u: U) => V): (mt: Maybe<T>, mu: Maybe<U>) => Maybe<V> {
+	static lift2<T, U, V>(f: (t: T, u: U) => V): * {
 		return curry((mt, mu) => mt.andThen(t => mu.map(u => f(t, u))));
 	}
 

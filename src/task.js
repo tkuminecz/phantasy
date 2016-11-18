@@ -1,4 +1,5 @@
 // @flow
+import { curry} from 'ramda';
 import { Maybe } from '@/maybe';
 
 type TaskExecutor<A, X> = (res: (a: A) => void, rej: (x: X) => void) => void;
@@ -93,6 +94,20 @@ export class Task<A, X> {
 	 */
 	static Fail(x: X): Task<*, X> {
 		return new Task((_, fail) => fail(x));
+	}
+
+	/**
+	 * lift :: (a -> b) -> Task a x -> Task b x
+	 */
+	static lift<T, U, X>(f: (t: T) => U): (tt: Task<T, X>) => Task<U, X> {
+		return (tt) => tt.map(f);
+	}
+
+	/**
+	 * lift2 :: (a -> b -> c) -> Task a x -> Task b x -> Task c x
+	 */
+	static lift2<T, U, V, X>(f: (t: T, u: U) => V): * {
+		return curry((tt, tu) => tt.andThen(tt => tu.map(tu => f(tt, tu))));
 	}
 
 }
