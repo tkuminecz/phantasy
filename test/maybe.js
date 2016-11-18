@@ -45,11 +45,15 @@ test('Maybe', t => {
 	t.deepEqual(Nothing.map(a => a + 2), Nothing);
 
 	// ap
-	t.deepEqual(Maybe.lift(a => a + 2)(Just(3)), Just(5));
-	t.deepEqual(Maybe.lift2((a, b) => a + b)(Just(3), Just(2)), Just(5));
-	t.deepEqual(Maybe.lift2((a, b) => a + b)(Just(3))(Just(2)), Just(5));
+	t.deepEqual(Maybe.lift(a => a + 2).ap(Just(3)), Just(5));
+	t.deepEqual(Maybe.lift(curry((a, b) => a + b)).ap(Just(3)).ap(Just(2)), Just(5));
+	t.deepEqual(Maybe.lift(add3).ap(Just(1)).ap(Just(2)).ap(Just(3)), Just(6));
 
 	// andThen
 	t.deepEqual(Just(2).andThen((a: number) => Just(a + 2)), Just(4));
 	t.deepEqual(Nothing.andThen(a => Just(a + 2)), Nothing);
+
+
 });
+
+const add3 = curry((a: number, b: number, c: number) => a + b + c);
