@@ -18,4 +18,5 @@ lib/%.js.flow: src/%.js
 	@cp $< $@
 
 clean:
-		rm -rf lib
+		@echo "Cleaning"
+		@rm -rf lib

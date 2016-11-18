@@ -1,13 +1,15 @@
 {
   "name": "phantasy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
+  "jsnext:main": "lib/main.js",
   "files": [
     "lib/",
     "index.js"
   ],
   "scripts": {
+    "build": "make clean && make",
     "flow": "flow",
     "test": "babel-tape-runner $(\\find test | \\grep \\.js) | tap-diff"
   },
