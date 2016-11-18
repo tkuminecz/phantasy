@@ -1,4 +1,5 @@
 // @flow
+import { curry } from 'ramda';
 import { inspect } from 'util';
 import { raise } from '@/util';
 
@@ -76,9 +77,9 @@ export class Maybe<A> {
 	}
 
 	/**
-	 * equals :: Maybe a ~> Maybe a -> Bool
+	 * eq :: Maybe a ~> Maybe a -> Bool
 	 */
-	equals(other: Maybe<A>): bool {
+	eq(other: Maybe<A>): bool {
 		return this.cases({
 			Just: (a) => other.cases({
 				Just: (b) => a === b,
@@ -91,23 +92,16 @@ export class Maybe<A> {
 		});
 	}
 
+	notEq(other: Maybe<A>): bool {
+		return !this.eq(other);
+	}
+
 	/**
 	 * map :: Maybe a ~> (a -> b) -> Maybe b
 	 */
 	map<B>(f: (a: A) => B): Maybe<B> {
 		return (this.data instanceof Just)
 			? Maybe.Just(f(this.data.value))
-			: Maybe.Nothing;
-	}
-
-	/**
-	 * ap ::
-	 */
-	ap<B, C>(arg: B): Maybe<C> {
-		return (this.data instanceof Just)
-			? (typeof this.data.value === 'function')
-				? this.data.value(arg)
-				: raise(Error, ``)
 			: Maybe.Nothing;
 	}
 
@@ -142,7 +136,7 @@ export class Maybe<A> {
 	/**
 	 * Just :: a -> Maybe a
 	 */
-	static Just(a: A): Maybe<A> {
+	static Just<B>(a: B): Maybe<B> {
 		return new Maybe(new Just(a));
 	}
 
@@ -150,5 +144,27 @@ export class Maybe<A> {
 	 * Nothing :: Maybe a
 	 */
 	static Nothing = (new Maybe(new Nothing()): any);
+
+	/**
+	 * lift :: (a -> b) -> Maybe a -> Maybe b
+	 *
+	 * Takes an unary function and returns a function
+	 * that takes a maybe and applies the value to the
+	 * given function
+	 */
+	static lift<T, U>(f: (t: T) => U): (mt: Maybe<T>) => Maybe<U> {
+		return (mt) => mt.map(t => f(t));
+	}
+
+	/**
+	 * lift2 :: (a -> b -> c) -> Maybe a -> Maybe b -> Maybe c
+	 *
+	 * Takes an binary function and returns a function
+	 * that takes two maybes and applies the values to the
+	 * given function
+	 */
+	static lift2<T, U, V>(f: (t: T, u: U) => V): (mt: Maybe<T>, mu: Maybe<U>) => Maybe<V> {
+		return curry((mt, mu) => mt.andThen(t => mu.map(u => f(t, u))));
+	}
 
 }
