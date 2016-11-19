@@ -5,4 +5,6 @@ export * from './reader';
 export * from './state';
 export * from './task';
 export * from './writer';
-export * as util from './util';
+import * as utilS from './util';
+
+export const util = utilS;
