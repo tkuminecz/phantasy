@@ -1,11 +1,3 @@
 {
-	"presets": [ "es2015", "stage-1", "flow" ],
-	"plugins": [
-		[ "babel-root-import", [
-			{
-				"rootPathPrefix": "@",
-				"rootPathSuffix": "src"
-			}
-		] ]
-	]
+	"presets": [ "es2015", "stage-1", "flow" ]
 }

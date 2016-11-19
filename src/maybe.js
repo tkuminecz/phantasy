@@ -1,7 +1,7 @@
 // @flow
 import { curry } from 'ramda';
 import { inspect } from 'util';
-import { raise } from '@/util';
+import { raise } from './util';
 
 /**
  * Class representing a present value
