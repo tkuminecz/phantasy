@@ -5,5 +5,6 @@ module.exports = {
 	Reader: require('./lib/reader'),
 	State: require('./lib/state'),
 	Task: require('./lib/task'),
-	Writer: require('./lib/writer')
+	Writer: require('./lib/writer'),
+	util: require('./lib/util')
 };
