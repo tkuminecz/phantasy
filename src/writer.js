@@ -58,4 +58,5 @@ export class Writer<E, A> {
 	static Tell<F>(msg: F): Writer<F, any> {
 		return new Writer({ value: null, env: [ msg ] });
 	}
+	
 }

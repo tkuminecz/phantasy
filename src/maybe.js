@@ -167,7 +167,7 @@ export class Maybe<A> {
 	/**
 	 * Nothing :: Maybe a
 	 */
-	static Nothing = (new Maybe(new Nothing()): any);
+	static Nothing = (new Maybe(new Nothing()): Maybe<any>);
 
 	/**
 	 * lift :: (a -> b) -> Maybe (a -> b)

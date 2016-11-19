@@ -1,5 +1,4 @@
 {
-	"presets": [ "es2015", "stage-1", "flow" ],
 	"plugins": [
 		[ "babel-root-import", [
 			{
@@ -7,5 +6,13 @@
 				"rootPathSuffix": "src"
 			}
 		] ]
-	]
+	],
+	"env": {
+		"development": {
+			"presets": [ "es2015", "stage-1", "flow" ]
+		},
+		"build": {
+			"presets": [ "es2015-rollup", "stage-1", "flow" ]
+		}
+	}
 }
