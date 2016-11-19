@@ -1,10 +1,12 @@
 {
   "name": "phantasy",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "",
   "main": "lib/main.js",
+  "jsnext:main": "src/main.js",
   "files": [
-    "lib/"
+    "lib/",
+		"src/"
   ],
   "scripts": {
     "build": "BABEL_ENV=build rollup -c",
