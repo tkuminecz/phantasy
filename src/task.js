@@ -1,6 +1,6 @@
 // @flow
 import { curry} from 'ramda';
-import { Maybe } from '@/maybe';
+import { Maybe } from './maybe';
 import Promise from 'bluebird';
 
 type TaskExecutor<A, X> = (res: (a: A) => void, rej: (x: X) => void) => void;
