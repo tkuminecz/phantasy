@@ -1,5 +1,5 @@
 // @flow
-import { State } from '../src/state';
+import { State } from '@/state';
 import test from 'tape';
 
 test('State', t => {

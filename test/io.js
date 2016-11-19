@@ -1,5 +1,5 @@
 // @flow
-import { IO } from '../src/io';
+import { IO } from '@/io';
 import test from 'tape';
 
 function deepEqualIO(t, a, b) {

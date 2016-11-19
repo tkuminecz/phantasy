@@ -1,6 +1,6 @@
 // @flow
 import { curry } from 'ramda';
-import { Maybe } from '../src/maybe';
+import { Maybe } from '@/maybe';
 import test from 'tape';
 
 const { Just, Nothing } = Maybe;

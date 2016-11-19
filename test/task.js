@@ -1,7 +1,7 @@
 // @flow
-import { Maybe } from '../src/maybe';
+import { Maybe } from '@/maybe';
 import Promise from 'bluebird';
-import { Task } from '../src/task';
+import { Task } from '@/task';
 import test from 'tape';
 
 const { Success, Fail } = Task;

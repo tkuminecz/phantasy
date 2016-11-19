@@ -1,7 +1,7 @@
 // @flow
 import { curry } from 'ramda';
 import { inspect } from 'util';
-import { raise } from './util';
+import { raise } from '@/util';
 
 /**
  * Class representing a present value
@@ -167,7 +167,7 @@ export class Maybe<A> {
 	/**
 	 * Nothing :: Maybe a
 	 */
-	static Nothing = (new Maybe(new Nothing()): Maybe<any>);
+	static Nothing = (new Maybe(new Nothing()): any);
 
 	/**
 	 * lift :: (a -> b) -> Maybe (a -> b)

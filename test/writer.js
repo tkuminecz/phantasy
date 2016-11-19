@@ -1,5 +1,5 @@
 // @flow
-import { Writer } from '../src/writer';
+import { Writer } from '@/writer';
 import test from 'tape';
 
 function half(num): Writer<string, number> {

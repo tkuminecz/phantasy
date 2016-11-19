@@ -1,5 +1,5 @@
 // @flow
-import { Reader } from '../src/reader';
+import { Reader } from '@/reader';
 import test from 'tape';
 
 function greet(name: string) {
