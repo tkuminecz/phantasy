@@ -1,5 +1,6 @@
 // @flow
 import { curry} from 'ramda';
+import { IO } from './io';
 import { Maybe } from './maybe';
 import Promise from 'bluebird';
 import { Result } from './result';
@@ -102,7 +103,7 @@ export class Task<A, X> {
 	/**
 	 * fromMaybe :: Maybe a -> Task (Maybe a) x
 	 */
-	static fromMaybe<B>(ma: Maybe<B>): Task<Maybe<B>, *> {
+	static fromMaybe<B>(ma: Maybe<B>): Task<Maybe<B>, any> {
 		return Task.Success(ma);
 	}
 
@@ -116,6 +117,13 @@ export class Task<A, X> {
 				Err: x => fail(x)
 			});
 		});
+	}
+
+	/**
+	 * fromIO :: IO a -> Task a x
+	 */
+	static fromIO<B>(io: IO<B>): Task<B, any> {
+		return new Task(succ => succ(io.runIO()));
 	}
 
 	/**

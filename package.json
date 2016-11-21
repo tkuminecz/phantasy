@@ -1,6 +1,6 @@
 {
   "name": "phantasy",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "",
   "main": "lib/main.js",
   "jsnext:main": "src/main.js",
