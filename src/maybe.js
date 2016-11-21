@@ -150,18 +150,6 @@ export class Maybe<A> {
 	}
 
 	/**
-	 * toTask :: Maybe a ~> () -> Task a x
-	 */
-	toTask(): Task<A, *> {
-		return new Task((succ, fail) => {
-			this.cases({
-				Just: (a) => succ(a),
-				Nothing: () => fail()
-			});
-		});
-	}
-
-	/**
 	 * of :: a -> Maybe a
 	 */
 	static of(a: ?A): Maybe<A> {

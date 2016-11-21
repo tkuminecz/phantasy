@@ -5,14 +5,23 @@ import test from 'tape';
 
 const { Just, Nothing } = Maybe;
 
+const doThrow = <A>(val: A, shouldThrow: bool): A => {
+	if (shouldThrow) {
+		throw new Error();
+	}
+	return val;
+};
+
 test('Maybe', t => {
-	t.plan(23);
+	t.plan(25);
 
 	// constructors
 	t.deepEqual(Just(2), Just(2));
 	t.deepEqual(Nothing, Nothing);
 	t.deepEqual(Maybe.of(2), Just(2));
 	t.deepEqual(Maybe.of(null), Nothing);
+	t.deepEqual(Maybe.fromThrowable(() => doThrow('foo', false)), Just('foo'));
+	t.deepEqual(Maybe.fromThrowable(() => doThrow('foo', true)), Nothing);
 
 	// eq & notEq
 	t.ok(Just(2).eq(Just(2)));
@@ -52,8 +61,6 @@ test('Maybe', t => {
 	// andThen
 	t.deepEqual(Just(2).andThen((a: number) => Just(a + 2)), Just(4));
 	t.deepEqual(Nothing.andThen(a => Just(a + 2)), Nothing);
-
-
 });
 
 const add3 = curry((a: number, b: number, c: number) => a + b + c);

@@ -2,6 +2,7 @@
 import { curry} from 'ramda';
 import { Maybe } from './maybe';
 import Promise from 'bluebird';
+import { Result } from './result';
 
 type TaskExecutor<A, X> = (res: (a: A) => void, rej: (x: X) => void) => void;
 
@@ -96,6 +97,25 @@ export class Task<A, X> {
 	 */
 	static Fail<Y>(x: Y): Task<*, Y> {
 		return new Task((_, fail) => fail(x));
+	}
+
+	/**
+	 * fromMaybe :: Maybe a -> Task (Maybe a) x
+	 */
+	static fromMaybe<B>(ma: Maybe<B>): Task<Maybe<B>, *> {
+		return Task.Success(ma);
+	}
+
+	/**
+	 * fromResult :: Result a x -> Task a x
+	 */
+	static fromResult<B, Y>(res: Result<B, Y>): Task<B, Y> {
+		return new Task((succ, fail) => {
+			res.cases({
+				Val: a => succ(a),
+				Err: x => fail(x)
+			});
+		});
 	}
 
 	/**
