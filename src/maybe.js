@@ -2,6 +2,7 @@
 import { curry } from 'ramda';
 import { inspect } from 'util';
 import { raise } from './util';
+import { Task } from './task';
 
 /**
  * Class representing a present value
@@ -149,6 +150,18 @@ export class Maybe<A> {
 	}
 
 	/**
+	 * toTask :: Maybe a ~> () -> Task a x
+	 */
+	toTask(): Task<A, *> {
+		return new Task((succ, fail) => {
+			this.cases({
+				Just: (a) => succ(a),
+				Nothing: () => fail()
+			});
+		});
+	}
+
+	/**
 	 * of :: a -> Maybe a
 	 */
 	static of(a: ?A): Maybe<A> {
@@ -178,6 +191,18 @@ export class Maybe<A> {
 	 */
 	static lift<T, U>(f: (t: T) => U): MaybeFn<T, U> {
 		return new MaybeFn(new Just(f));
+	}
+
+	/**
+	 * fromThrowable :: (() -> a) -> Maybe a
+	 */
+	static fromThrowable<B>(throwFn: () => B): Maybe<B> {
+		try {
+			return Maybe.Just(throwFn());
+		}
+		catch (e) {
+			return Maybe.Nothing;
+		}
 	}
 
 }
