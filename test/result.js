@@ -13,13 +13,15 @@ const doThrow = <A>(val: A, shouldThrow: bool): A => {
 };
 
 test('Result', t => {
-	t.plan(13);
+	t.plan(14);
 
 	t.deepEqual(Val(42), Val(42));
 	t.deepEqual(Err('err!'), Err('err!'));
 
 	t.deepEqual(Val(42).map(a => a), Val(42));
 	t.deepEqual(Err('err!').map(a => a), Err('err!'));
+
+	t.deepEqual(Result.of(42), Val(42));
 
 	t.deepEqual(Result.fromThrowable(() => doThrow('foo', false)), Val('foo'));
 	t.deepEqual(Result.fromThrowable(() => doThrow('foo', true)), Err(new Error('error!')));

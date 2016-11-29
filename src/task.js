@@ -1,5 +1,4 @@
 // @flow
-import { curry} from 'ramda';
 import { IO } from './io';
 import { Maybe } from './maybe';
 import Promise from 'bluebird';
@@ -70,7 +69,10 @@ export class Task<A, X> {
 		});
 	}
 
-	toMaybe(): Task<Maybe<A>, void> {
+	/**
+	 * toMaybe :: Task a x ~> Task (Maybe a) x
+	 */
+	toMaybe(): Task<Maybe<A>, any> {
 		return this.andThen(val => Task.Success(Maybe.Just(val)))
 			.handleError(() => Task.Success(Maybe.Nothing));
 	}
@@ -87,7 +89,7 @@ export class Task<A, X> {
 	 *
 	 * Returns a Task that always succeeds with the given value
 	 */
-	static Success<B>(a: B): Task<B, *> {
+	static Success<B>(a: B): Task<B, any> {
 		return new Task(succ => succ(a));
 	}
 
@@ -96,15 +98,8 @@ export class Task<A, X> {
 	 *
 	 * Returns a Task that always fails with the given value
 	 */
-	static Fail<Y>(x: Y): Task<*, Y> {
+	static Fail<Y>(x: Y): Task<any, Y> {
 		return new Task((_, fail) => fail(x));
-	}
-
-	/**
-	 * fromMaybe :: Maybe a -> Task (Maybe a) x
-	 */
-	static fromMaybe<B>(ma: Maybe<B>): Task<Maybe<B>, any> {
-		return Task.Success(ma);
 	}
 
 	/**
@@ -131,15 +126,15 @@ export class Task<A, X> {
 	 *
 	 * Converts a promise to a task
 	 */
-	static fromPromise<B>(promise: Promise<B>): Task<B, ?Error> {
+	static fromPromise<A>(promise: Promise<A>): Task<A, ?Error> {
 		return new Task((succ, fail) => { promise.then(succ).catch(fail); });
 	}
 
 	/**
 	 * fromPromiseFunc :: (() -> Promise a) -> Task a Error
 	 */
-	static fromPromiseFunc<B>(promiseFn: () => Promise<B>): Task<B, ?Error> {
-		return new Task((succ, fail) => { promiseFn().then(succ).catch(fail); });
+	static fromPromiseFunc<A>(promiseFn: () => Promise<A>): Task<A, ?Error> {
+		return Task.fromPromise(promiseFn());
 	}
 
 	/**
@@ -159,17 +154,38 @@ export class Task<A, X> {
 	}
 
 	/**
+	 * fromThrowable :: (() -> a) -> Task a Error
+	 */
+	static fromThrowable<A>(fn: () => A): Task<A, Error> {
+		return new Task((succ, fail) => {
+			try {
+				succ(fn());
+			}
+			catch (err) {
+				fail(err);
+			}
+		});
+	}
+
+	/**
 	 * lift :: (a -> b) -> Task a x -> Task b x
 	 */
 	static lift<T, U, X>(f: (t: T) => U): (tt: Task<T, X>) => Task<U, X> {
-		return (tt) => tt.map(f);
+		return (tt) => tt.andThen(t => Task.of(f(t)));
 	}
 
 	/**
 	 * lift2 :: (a -> b -> c) -> Task a x -> Task b x -> Task c x
 	 */
 	static lift2<T, U, V, X>(f: (t: T, u: U) => V): * {
-		return curry((tt, tu) => tt.andThen(tt => tu.map(tu => f(tt, tu))));
+		return (tt, tu) => tt.andThen(tt => tu.map(tu => f(tt, tu)));
+	}
+
+	/**
+	 * lift3 :: (a -> b -> c -> d) -> Task a x -> Task b x -> Task c x -> Task d x
+	 */
+	static lift3<A, B, C, D>(f: (a: A, b: B, c: C) => D): * {
+		return (ta, tb, tc) => ta.andThen(a => tb.andThen(b => tc.andThen(c => Task.of(f(a, b, c)))));
 	}
 
 }

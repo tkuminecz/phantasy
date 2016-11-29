@@ -1,5 +1,4 @@
 // @flow
-import { curry } from 'ramda';
 import { inspect } from 'util';
 import { raise } from './util';
 import { Task } from './task';
@@ -93,6 +92,9 @@ export class Maybe<A> {
 		});
 	}
 
+	/**
+	 * notEq :: Maybe ~> Maybe a -> Bool
+	 */
 	notEq(other: Maybe<A>): bool {
 		return !this.eq(other);
 	}
@@ -104,30 +106,6 @@ export class Maybe<A> {
 		return (this.data instanceof Just)
 			? Maybe.Just(f(this.data.value))
 			: Maybe.Nothing;
-	}
-
-	/**
-	 * ap :: Maybe (a -> b) ~> Maybe a -> Maybe b
-	 */
-	ap<B>(arg: Maybe<B>): Maybe<*> {
-		if (this instanceof MaybeFn) {
-			return this.cases({
-				Just: (f) => arg.andThen(arg => {
-					const result = f(arg);
-					if (typeof result === 'function') {
-						return Maybe.lift(result);
-					}
-					else {
-						return Maybe.Just(result);
-					}
-				}),
-				Nothing: () => Maybe.Nothing
-			});
-		}
-		else {
-			console.error(this);
-			throw new TypeError(this.data);
-		}
 	}
 
 	/**
@@ -171,17 +149,6 @@ export class Maybe<A> {
 	static Nothing = (new Maybe(new Nothing()): any);
 
 	/**
-	 * lift :: (a -> b) -> Maybe (a -> b)
-	 *
-	 * Takes an unary function and returns a function
-	 * that takes a maybe and applies the value to the
-	 * given function
-	 */
-	static lift<T, U>(f: (t: T) => U): MaybeFn<T, U> {
-		return new MaybeFn(new Just(f));
-	}
-
-	/**
 	 * fromThrowable :: (() -> a) -> Maybe a
 	 */
 	static fromThrowable<B>(throwFn: () => B): Maybe<B> {
@@ -193,7 +160,25 @@ export class Maybe<A> {
 		}
 	}
 
-}
+	/**
+	 * lift :: (a -> b) -> Maybe a -> Maybe b
+	 */
+	static lift<A, B>(f: (a: A) => B): * {
+		return (ma) => ma.andThen(a => Maybe.of(f(a)));
+	}
 
-type Unary<A, B> = (a: A) => B
-export class MaybeFn<A, B> extends Maybe<Unary<A, B>> {}
+	/**
+	 * lift2 :: (a -> b -> c) -> Maybe a -> Maybe b -> Maybe c
+	 */
+	static lift2<A, B, C>(f: (a: A, b: B) => C): * {
+		return (ma, mb) => ma.andThen(a => mb.andThen(b => Maybe.of(f(a, b))));
+	}
+
+	/**
+	 * lift3 :: (a -> b -> c -> d) -> Maybe a -> Maybe b -> Maybe c -> Maybe d
+	 */
+	static lift3<A, B, C, D>(f: (a: A, b: B, c: C) => D): * {
+		return (ma, mb, mc) => ma.andThen(a => mb.andThen(b => mc.andThen(c => Maybe.of(f(a, b, c)))));
+	}
+
+}

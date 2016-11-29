@@ -1,5 +1,4 @@
 // @flow
-import { compose, curry } from 'ramda';
 
 /**
  * The IO monad
@@ -40,14 +39,14 @@ export class IO<A> {
 	 * lift :: (a -> b) -> IO a -> IO b
 	 */
 	static lift<T, U>(f: (t: T) => U): (t: IO<T>) => IO<U> {
-		return (iot) => iot.map(f);
+		return (iot) => iot.andThen(t => IO.of(f(t)));
 	}
 
 	/**
 	 * lift2 :: (a -> b -> c) -> IO a -> IO b -> IO c
 	 */
 	static lift2<T, U, V>(f: (t: T, u: U) => V): * {
-		return curry((iot, iou) => iot.andThen(iot => iou.map(iou => f(iot, iou))));
+		return (iot, iou) => iot.andThen(iot => iou.map(iou => f(iot, iou)));
 	}
 
 }

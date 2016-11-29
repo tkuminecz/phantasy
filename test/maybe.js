@@ -1,5 +1,4 @@
 // @flow
-import { curry } from 'ramda';
 import { Maybe } from '../src/maybe';
 import test from 'tape';
 
@@ -13,7 +12,7 @@ const doThrow = <A>(val: A, shouldThrow: bool): A => {
 };
 
 test('Maybe', t => {
-	t.plan(25);
+	t.plan(27);
 
 	// constructors
 	t.deepEqual(Just(2), Just(2));
@@ -22,6 +21,10 @@ test('Maybe', t => {
 	t.deepEqual(Maybe.of(null), Nothing);
 	t.deepEqual(Maybe.fromThrowable(() => doThrow('foo', false)), Just('foo'));
 	t.deepEqual(Maybe.fromThrowable(() => doThrow('foo', true)), Nothing);
+
+	// toString
+	t.equal(Just(2).toString(), 'Just 2');
+	t.equal(Nothing.toString(), 'Nothing');
 
 	// eq & notEq
 	t.ok(Just(2).eq(Just(2)));
@@ -53,14 +56,12 @@ test('Maybe', t => {
 	t.deepEqual(Just(2).map(a => a + 3), Just(5));
 	t.deepEqual(Nothing.map(a => a + 2), Nothing);
 
-	// ap
-	t.deepEqual(Maybe.lift(a => a + 2).ap(Just(3)), Just(5));
-	t.deepEqual(Maybe.lift(curry((a, b) => a + b)).ap(Just(3)).ap(Just(2)), Just(5));
-	t.deepEqual(Maybe.lift(add3).ap(Just(1)).ap(Just(2)).ap(Just(3)), Just(6));
-
 	// andThen
 	t.deepEqual(Just(2).andThen((a: number) => Just(a + 2)), Just(4));
 	t.deepEqual(Nothing.andThen(a => Just(a + 2)), Nothing);
-});
 
-const add3 = curry((a: number, b: number, c: number) => a + b + c);
+	// lift
+	t.deepEqual(Maybe.lift(a => a + 2)(Just(3)), Just(5));
+	t.deepEqual(Maybe.lift2((a, b) => a + b)(Just(3), Just(2)), Just(5));
+	t.deepEqual(Maybe.lift3((a, b, c) => a + b + c)(Just(1), Just(2), Just(3)), Just(6));
+});

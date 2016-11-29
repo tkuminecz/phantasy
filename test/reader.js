@@ -12,18 +12,18 @@ function sayInfo() {
 		.andThen((person: { name: string, age: number }) => Reader.of(`hey ${ person.name }, you're ${ person.age } years old!`));
 }
 
-function getName() {
+function getName(): Reader<{ name: string }, string> {
 	return Reader.Asks(p => p.name)
 		.andThen(name => Reader.of(name));
 }
 
-function getAge() {
+function getAge(): Reader<{ age: number }, number> {
 	return Reader.Asks(p => p.age)
 		.andThen(age => Reader.of(age));
 }
 
 test('Reader', t => {
-	t.plan(7);
+	t.plan(11);
 
 	const person = { name: 'person', age: 29 };
 
@@ -33,7 +33,14 @@ test('Reader', t => {
 	t.equal(getName().runReader(person), 'person');
 	t.equal(getAge().runReader(person), 29);
 
+	t.equal(getName().map(n => n.length).runReader({ name: 'tim' }), 3);
+
+	t.deepEqual(Reader.all(getName(), getName()).runReader({ name: 'tim' }), [ 'tim', 'tim' ]);
+
+	t.deepEqual(Reader.merge2(getName(), getAge()).runReader({ name: 'tim', age: 24 }), [ 'tim', 24 ]);
+	t.deepEqual(Reader.merge3(getName(), getAge(), (Reader.Asks(e => e.foo): Reader<{ foo: bool }, bool>)).runReader({ name: 'tim', age: 29, foo: true }), [ 'tim', 29, true ]);
+
 	t.equal(Reader.lift(a => a + 1)(Reader.of(2)).runReader(), 3);
-	t.equal(Reader.lift2((a, b) => a + b)(Reader.getProp('a'), Reader.getProp('b')).runReader({ a: 2, b: 4 }), 6);
-	t.equal(Reader.lift2((a, b) => a + b)(Reader.getProp('a'))(Reader.getProp('b')).runReader({ a: 2, b: 4 }), 6);
+	t.equal(Reader.lift2((a, b) => a + b)(Reader.of(2), Reader.of(3)).runReader(), 5);
+	t.equal(Reader.lift3((a, b, c) => a + b * c)(Reader.of(2), Reader.of(3), Reader.of(4)).runReader(), 14);
 });
