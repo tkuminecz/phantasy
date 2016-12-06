@@ -1,4 +1,5 @@
 // @flow
+export * from './identity';
 export * from './io';
 export * from './maybe';
 export * from './reader';
