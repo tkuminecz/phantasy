@@ -1,29 +1,29 @@
 // @flow
-import { EffIO, EffResult, EffTask } from '../src/eff';
+import { Eff, EffResult, EffTask } from '../src/eff';
 import test from 'tape';
 
 const identity = a => a;
 
-test('EffIO', t => {
+test('Eff', t => {
 	t.plan(3);
 
-	const eff = EffIO.of(42);
+	const eff = Eff.of(42);
 
 	t.deepEqual(
-		eff.map(identity).runEff({}).runIO(),
-		eff.runEff({}).runIO(),
+		eff.map(identity).runEff({}),
+		eff.runEff({}),
 		'functor identity'
 	);
 
 	t.deepEqual(
-		EffIO.of(42).map(a => a * 2).runEff({}).runIO(),
-		EffIO.of(84).runEff({}).runIO({}),
+		Eff.of(42).map(a => a * 2).runEff({}),
+		Eff.of(84).runEff({}),
 		'map',
 	);
 
 	t.deepEqual(
-		eff.andThen(EffIO.of).runEff({}).runIO(),
-		eff.runEff({}).runIO(),
+		eff.andThen(Eff.of).runEff({}),
+		eff.runEff({}),
 		'monad identity'
 	);
 });
