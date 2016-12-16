@@ -10,8 +10,8 @@ test('util', t => {
 		t.fail('should have thrown an exception');
 	}
 	catch (err) {
-		t.equal(err.message, 'an error!');
-		t.equal(err.constructor.name, 'Error');
+		t.equal(err.message, 'an error!', 'raise()');
+		t.equal(err.constructor.name, 'Error', 'raise()');
 	}
 
 	try {
@@ -19,8 +19,8 @@ test('util', t => {
 		t.fail('should have thrown an exception');
 	}
 	catch (err) {
-		t.equal(err.message, '');
-		t.equal(err.constructor.name, 'TypeError');
+		t.equal(err.message, '', 'invalid()');
+		t.equal(err.constructor.name, 'TypeError', 'invalid()');
 	}
 
 });
