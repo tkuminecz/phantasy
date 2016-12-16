@@ -1,5 +1,7 @@
 # phantasy
 
+[![Build Status](https://travis-ci.org/tkuminecz/phantasy.svg?branch=master)](https://travis-ci.org/tkuminecz/phantasy)
+
 ## Data Types
 
 #### __`Identity`__
