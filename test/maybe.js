@@ -61,7 +61,7 @@ test('Maybe', t => {
 	t.deepEqual(Nothing.andThen(a => Just(a + 2)), Nothing);
 
 	// lift
-	t.deepEqual(Maybe.lift(a => a + 2)(Just(3)), Just(5));
-	t.deepEqual(Maybe.lift2((a, b) => a + b)(Just(3), Just(2)), Just(5));
-	t.deepEqual(Maybe.lift3((a, b, c) => a + b + c)(Just(1), Just(2), Just(3)), Just(6));
+	t.deepEqual(Maybe.lift(a => a + 2)(Just(3)), Just(5), 'lift');
+	t.deepEqual(Maybe.lift2((a, b) => a + b)(Just(3), Just(2)), Just(5), 'lift2');
+	t.deepEqual(Maybe.lift3((a, b, c) => a + b + c)(Just(1), Just(2), Just(3)), Just(6), 'lift3');
 });

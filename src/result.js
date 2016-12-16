@@ -78,21 +78,21 @@ export class Result<A, X> {
 	/**
 	 * of :: a -> Result a x
 	 */
-	static of<B>(v: B): Result<B, *> {
+	static of<B>(v: B): Result<B, any> {
 		return Result.Val(v);
 	}
 
 	/**
 	 * Val :: a -> Result a x
 	 */
-	static Val<B>(v: B): Result<B, *> {
+	static Val<B>(v: B): Result<B, any> {
 		return new Result(new Val(v));
 	}
 
 	/**
 	 * Err :: x -> Result a x
 	 */
-	static Err<Y>(e: Y): Result<*, Y> {
+	static Err<Y>(e: Y): Result<any, Y> {
 		return new Result(new Err(e));
 	}
 
