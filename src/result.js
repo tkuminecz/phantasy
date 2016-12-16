@@ -56,6 +56,16 @@ export class Result<A, X> {
 	}
 
 	/**
+	 * handleError :: Result a x ~> (x -> Result a y) -> Result a y
+	 */
+	handleError<Y>(handle: (x: X) => Result<A, Y>): Result<A, Y> {
+		return this.cases({
+			Val: (a) => Result.Val(a),
+			Err: (x) => handle(x)
+		});
+	}
+
+	/**
 	 * toMaybe :: Result a x ~> Maybe a
 	 */
 	toMaybe(): Maybe<A> {
