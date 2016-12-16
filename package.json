@@ -1,11 +1,10 @@
 {
   "name": "phantasy",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "",
   "author": "Tim Kuminecz <tkuminecz@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/tkuminecz/phantasy#readme",
-  "readme": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tkuminecz/phantasy.git"
