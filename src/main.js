@@ -1,4 +1,5 @@
 // @flow
+export * from './eff';
 export * from './identity';
 export * from './io';
 export * from './maybe';
@@ -7,6 +8,6 @@ export * from './result';
 export * from './state';
 export * from './task';
 export * from './writer';
-import * as utilS from './util';
+import * as utils from './util';
 
-export const util = utilS;
+export const util = utils;
