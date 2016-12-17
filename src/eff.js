@@ -24,14 +24,28 @@ export class Eff<E: {}, A> {
 	/**
 	 * andThen :: Eff e a ~> (a -> Eff f b) -> Eff (e & f) b
 	 */
-	andThen<F: {}, B>(next: (a: A) => Eff<E, B>): Eff<E & F, B> {
+	andThen<F: {}, B>(next: (a: A) => Eff<F, B>): Eff<E & F, B> {
 		return new Eff(env => next(this.runEff(env)).runEff(env));
+	}
+
+	/**
+	 * toEffResult :: Eff e a ~> () -> EffResult e a x
+	 */
+	toEffResult(): EffResult<E, A, any> {
+		return EffResult.fromEff(this);
+	}
+
+	/**
+	 * toEffTask :: Eff e a ~> () -> EffTask e a x
+	 */
+	toEffTask(): EffTask<E, A, any> {
+		return EffTask.fromEff(this);
 	}
 
 	/**
 	 * of :: a -> Eff e a
 	 */
-	static of(a: A): Eff<{}, A> {
+	static of<A>(a: A): Eff<{}, A> {
 		return new Eff(() => a);
 	}
 
@@ -63,9 +77,23 @@ export class EffResult<E: {}, A, X> {
 	}
 
 	/**
+	 * toEffTask :: EffResult e a x ~> () -> EffTask e a x
+	 */
+	toEffTask(): EffTask<E, A, X> {
+		return EffTask.fromEffResult(this);
+	}
+
+	/**
+	 * fromEff :: Eff e a -> EffResult e a x
+	 */
+	static fromEff<E: {}, A>(eff: Eff<E, A>): EffResult<E, A, any> {
+		return new EffResult(env => Result.Val(eff.runEff(env)));
+	}
+
+	/**
 	 * of :: a -> EffResult {} a x
 	 */
-	static of(a: A): EffResult<{}, A, any> {
+	static of<A>(a: A): EffResult<{}, A, any> {
 		return new EffResult(() => Result.of(a));
 	}
 
@@ -97,9 +125,29 @@ export class EffTask<E: {}, A, X> {
 	}
 
 	/**
+	 * fromEff :: Eff e a -> EffTask e a x
+	 */
+	static fromEff<E: {}, A>(eff: Eff<E, A>): EffTask<E, A, any> {
+		return new EffTask(env => Task.Success(eff.runEff(env)));
+	}
+
+	/**
+	 * fromEffResult :: EffResult e a x -> EffTask e a x
+	 */
+	static fromEffResult<E: {}, A, X>(eff: EffResult<E, A, X>): EffTask<E, A, X> {
+		return new EffTask(env => {
+			return eff.runEff(env)
+				.cases({
+					Val: a => Task.Success(a),
+					Err: x => Task.Fail(x)
+				});
+		});
+	}
+
+	/**
 	 * of :: a -> EffTask {} a x
 	 */
-	static of(a: A): EffTask<{}, A, any> {
+	static of<A>(a: A): EffTask<{}, A, any> {
 		return new EffTask(() => Task.of(a));
 	}
 
