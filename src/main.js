@@ -3,6 +3,7 @@ export * from './eff';
 export * from './identity';
 export * from './io';
 export * from './maybe';
+export * from './pair';
 export * from './reader';
 export * from './result';
 export * from './state';
