@@ -1,17 +1,18 @@
 // @flow
 import { Identity } from '../src/identity';
 import test from 'tape';
+import  * as Util from './test-util';
 
 test('Identity', t => {
 	t.plan(6);
 
-	t.deepEqual(Identity.of(42).toString(), `Identity 42`);
+	const tId = { t };
 
-	t.deepEqual(Identity.of(42).map(a => a), Identity.of(42), 'map');
-	t.deepEqual(Identity.of(42).andThen(a => Identity.of(a * 2)), Identity.of(84), 'andThen');
+	Util.testFunctor(tId, Identity);
+	Util.testMonad(tId, Identity);
+	Util.testLift(tId, Identity);
+	Util.testLift2(tId, Identity);
+	Util.testLift3(tId, Identity);
 
-	// lift
-	t.deepEqual(Identity.lift(a => a + 3)(Identity.of(2)), Identity.of(5), 'lift');
-	t.deepEqual(Identity.lift2((a, b) => a + b)(Identity.of(2), Identity.of(3)), Identity.of(5), 'lift2');
-	t.deepEqual(Identity.lift3((a, b, c) => a + b * c)(Identity.of(2), Identity.of(3), Identity.of(5)), Identity.of(17), 'lift3');
+	t.equal(Identity.of(42).toString(), 'Identity 42', 'toString');
 });

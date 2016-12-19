@@ -16,20 +16,6 @@ export class Identity<A> {
 	}
 
 	/**
-	 * eq :: Identity a ~> Identity a -> Bool
-	 */
-	eq(other: Identity<A>): bool {
-		return this.data === other.data;
-	}
-
-	/**
-	 * notEq :: Identity a ~> Identity a -> Bool
-	 */
-	notEq(other: Identity<A>): bool {
-		return !this.eq(other);
-	}
-
-	/**
 	 * map :: Identity a ~> (a -> b) -> Identity b
 	 */
 	map<B>(f: (a: A) => B): Identity<B> {
