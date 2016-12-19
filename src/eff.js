@@ -49,6 +49,13 @@ export class Eff<E: {}, A> {
 		return new Eff(() => a);
 	}
 
+	/**
+	 * Requires :: (e -> a) -> Eff e a
+	 */
+	static Requires<E: {}>(f: (e: E) => A): Eff<E, A> {
+		return new Eff(f);
+	}
+
 }
 
 /**
@@ -91,10 +98,24 @@ export class EffResult<E: {}, A, X> {
 	}
 
 	/**
+	 * fromResult :: Result a x -> EffResult {} a x
+	 */
+	static fromResult<A, X>(result: Result<A, X>): EffResult<{}, A, X> {
+		return new EffResult(() => result);
+	}
+
+	/**
 	 * of :: a -> EffResult {} a x
 	 */
 	static of<A>(a: A): EffResult<{}, A, any> {
 		return new EffResult(() => Result.of(a));
+	}
+
+	/**
+	 * Requires :: (e -> Result a x ) -> EffResult a x
+	 */
+	static Requires<E: {}, A, X>(f: (e: E) => Result<A, X>): EffResult<E, A, X> {
+		return new EffResult(f);
 	}
 
 }
@@ -145,10 +166,24 @@ export class EffTask<E: {}, A, X> {
 	}
 
 	/**
+	 * fromTask :: Task a x -> EffTask {} a x
+	 */
+	static fromTask<A, X>(task: Task<A, X>): EffTask<{}, A, X> {
+		return new EffTask(() => task);
+	}
+
+	/**
 	 * of :: a -> EffTask {} a x
 	 */
 	static of<A>(a: A): EffTask<{}, A, any> {
 		return new EffTask(() => Task.of(a));
+	}
+
+	/**
+	 * Requires :: (e -> Task a x) -> EffTask e a x
+	 */
+	static Requires<E: {}, A, X>(f: (e: E) => Task<A, X>): EffTask<E, A, X> {
+		return new EffTask(f);
 	}
 
 }
