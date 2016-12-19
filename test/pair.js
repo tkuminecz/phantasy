@@ -3,11 +3,13 @@ import { Pair } from '../src/pair';
 import test from 'tape';
 
 test('Pair', t => {
-	t.plan(3);
+	t.plan(4);
 
 	let pair = Pair.of([ 'foo', 42 ]);
 
 	t.deepEqual(pair, new Pair([ 'foo', 42 ]), 'Pair.of');
+
+	t.deepEqual(Pair.from('foo', 42), pair, 'Pair.from');
 
 	t.deepEqual(
 		pair.map(a => a),

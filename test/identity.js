@@ -3,7 +3,9 @@ import { Identity } from '../src/identity';
 import test from 'tape';
 
 test('Identity', t => {
-	t.plan(5);
+	t.plan(6);
+
+	t.deepEqual(Identity.of(42).toString(), `Identity 42`);
 
 	t.deepEqual(Identity.of(42).map(a => a), Identity.of(42), 'map');
 	t.deepEqual(Identity.of(42).andThen(a => Identity.of(a * 2)), Identity.of(84), 'andThen');
