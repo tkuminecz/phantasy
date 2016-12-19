@@ -2,7 +2,8 @@
 	"presets": [ "es2015", "stage-1", "flow" ],
 	"env": {
 		"test": {
-			"presets": [ "es2015", "stage-1", "flow" ]
+			"presets": [ "es2015", "stage-1", "flow" ],
+			"plugins": [ "istanbul" ]
 		}
 	}
 }
