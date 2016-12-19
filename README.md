@@ -1,6 +1,9 @@
 # phantasy
 
 [![Build Status](https://travis-ci.org/tkuminecz/phantasy.svg?branch=master)](https://travis-ci.org/tkuminecz/phantasy)
+[![Coverage Status](https://coveralls.io/repos/github/tkuminecz/phantasy/badge.svg)](https://coveralls.io/github/tkuminecz/phantasy)
+
+A collection of [Flow](http://flowtype.org/)-aware algebraic data types for JavaScript
 
 ## Data Types
 
