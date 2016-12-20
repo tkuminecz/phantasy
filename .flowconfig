@@ -1,5 +1,6 @@
 [ignore]
-.*/node_modules/nyc
+.*/node_modules/conventional-changelog-core/test/
+.*/node_modules/nyc/
 .*/lib
 
 [include]

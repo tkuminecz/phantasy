@@ -1,7 +1,9 @@
 // @flow
 
 /**
- * The IO monad
+ * The `IO` monad
+ *
+ * Represents a potentially-effectful synchronous computation
  */
 export class IO<A> {
 
@@ -9,51 +11,65 @@ export class IO<A> {
 
 	/**
 	 * Constructs a new IO instance
+	 *
+	 * @private
 	 */
 	constructor(runIO: () => A): void {
 		this.runIO = runIO;
 	}
 
 	/**
-	 * map :: IO a ~> (a -> b) -> IO b
+	 * `map :: IO a ~> (a -> b) -> IO b`
+	 *
+	 * Transforms the result of the `IO` instance
 	 */
-	map<B>(f: (a: A) => B): IO<B> {
-		return IO.of(f(this.runIO()));
+	map<B>(transform: (a: A) => B): IO<B> {
+		return IO.of(transform(this.runIO()));
 	}
 
 	/**
-	 * andThen :: IO a ~> (a -> IO b) -> IO b
+	 * `andThen :: IO a ~> (a -> IO b) -> IO b`
+	 *
+	 * Chains the result of the `IO` instance with another `IO`-producing function
 	 */
 	andThen<B>(next: (a: A) => IO<B>): IO<B> {
 		return next(this.runIO());
 	}
 
 	/**
-	 * of :: a -> IO a
+	 * `of :: a -> IO a`
+	 *
+	 * Returns an `IO` instance that always produces the given value
 	 */
-	static of(val: A): IO<A> {
-		return new IO(() => val);
+	static of(value: A): IO<A> {
+		return new IO(() => value);
 	}
 
 	/**
-	 * lift :: (a -> b) -> IO a -> IO b
+	 * `lift :: (a -> b) -> IO a -> IO b`
+	 *
+	 * Takes an unary function an returns an equivalent unary function which operates on `IO` values
 	 */
-	static lift<T, U>(f: (t: T) => U): (t: IO<T>) => IO<U> {
-		return (iot) => iot.andThen(t => IO.of(f(t)));
+	static lift<A, B>(f: (t: A) => B): (t: IO<A>) => IO<B> {
+		return (ioA) => ioA.andThen(a => IO.of(f(a)));
 	}
 
 	/**
-	 * lift2 :: (a -> b -> c) -> IO a -> IO b -> IO c
+	 * `lift2 :: (a -> b -> c) -> IO a -> IO b -> IO c`
+	 *
+	 * Takes an binary function an returns an equivalent binary function which operates on `IO` values
 	 */
-	static lift2<T, U, V>(f: (t: T, u: U) => V): (t: IO<T>, u: IO<U>) => IO<V> {
-		return (iot, iou) => iot.andThen(iot => iou.map(iou => f(iot, iou)));
+	static lift2<A, B, C>(f: (a: A, b: B) => C): (a: IO<A>, b: IO<B>) => IO<C> {
+		return (ioA, ioB) => ioA.andThen(a => ioB.map(b => f(a, b)));
 	}
 
 	/**
-	 * lift3 :: (a -> b -> c -> d) -> IO a -> IO b -> IO c -> IO d
+	 * `lift3 :: (a -> b -> c -> d) -> IO a -> IO b -> IO c -> IO d`
+	 *
+	 * Takes an ternary function an returns an equivalent ternary function which operates on `IO` values
 	 */
-	static lift3<T, U, V, W>(f: (t: T, u: U, v: V) => W): (t: IO<T>, u: IO<U>, v: IO<V>) => IO<W> {
-		return (iot, iou, iov) => iot.andThen(iot => iou.andThen(iou => iov.map(iov => f(iot, iou, iov))));
+	static lift3<A, B, C, D>(f: (a: A, b: B, c: C) => D): (a: IO<A>, b: IO<B>, c: IO<C>) => IO<D> {
+		return (ioA, ioB, ioC) => ioA.andThen(a => ioB.andThen(b => ioC.map(c => f(a, b, c))));
 	}
 
 }

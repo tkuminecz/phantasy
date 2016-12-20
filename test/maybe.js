@@ -13,7 +13,7 @@ const doThrow = <A>(val: A, shouldThrow: bool): A => {
 };
 
 test('Maybe', t => {
-	t.plan(28);
+	t.plan(24);
 
 	Util.testFunctor(t, {}, Maybe);
 
@@ -28,12 +28,6 @@ test('Maybe', t => {
 	// toString
 	t.equal(Just(2).toString(), 'Just 2');
 	t.equal(Nothing.toString(), 'Nothing');
-
-	// eq & notEq
-	t.ok(Just(2).eq(Just(2)));
-	t.ok(Nothing.eq(Nothing));
-	t.ok(Just(2).notEq(Nothing));
-	t.ok(Nothing.notEq(Just(2)));
 
 	// isJust & isNothing
 	t.ok(Just(2).isJust());
