@@ -5,4 +5,7 @@ node_js:
   - "5.0"
   - "4.0"
 after_success:
-- npm run test:coverage:coveralls
+- bash deploy.sh
+env:
+  global:
+    - secure: "UmdCD/ToaW7CXbGI7G9RlmKj2jAYbDJ09Qjaue53ifssOE/vM+fmGz+rMmPVGKVFntlwFySfSifgE7ZMRPrLGWDDO+ZX0dCfSQ3g67eFQ2eOaXl+vaZX7MZ/E0P8kHTVOzsmNNcywPhSgvDfk0JrqqQ+wsF4RaPZ8233I1hY0HEA9IPYncW3lhkRn578zrTfBevIcZZhXxxAi0xQbyh79hsvG7fZuwyoGxXJ2zYAgEPZc2nPqHJff6tcMKcAmlAZJwGrB3LayWskKQJm9YxJF+QjWzmVYxunv7fgvFbmo0bmdO95hdSYs5L20C0pamEMMTqYLPG2xp8k3318eHXcpuOaa0vUL+eWv33bSbY6AxFhp/zz2CECL8lJU8mDYhi2UDuNPQJZrrzXO9K1KqZjmBct/S26RVbKeqx+UmiZXLL5qKGBLKuzy0GZmi9JbiglI559xTU1X7k9+sq1ydHm9p1Op68JGiCmVjRih+Sj0pekKjiy31ybZ9hm9ZhLzozxLkkqlm22+gle8EH2eu6z+pL08C9Wd5Ukiu6I6W/UG+v6KsrZig7+D+aF69wgNsebAgiM+Ail4W2H9iP+vhby4JjmKWniccLQ6ucEkseIm+1nDUV7rI3b/f4zEQ1Ld3SKH+I5k6NtNy9gthP78isd2PJxzdHyOEbFdtdfpW7qQas="
