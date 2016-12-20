@@ -2,11 +2,11 @@
 
 set -o errexit -o nounset
 
-if [ "$TRAVIS_BRANCH" != "master" ]
-then
-  echo "This commit was made against $TRAVIS_BRANCH and not master! No deploy!"
-  exit 0
-fi
+# if [ "$TRAVIS_BRANCH" != "master" ]
+# then
+#   echo "This commit was made against $TRAVIS_BRANCH and not master! No deploy!"
+#   exit 0
+# fi
 
 rev=$(git rev-parse --short HEAD)
 
