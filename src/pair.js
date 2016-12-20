@@ -48,12 +48,13 @@ export class Pair<A, B> {
 	}
 
 	/**
-	 * `map :: Pair a b ~> ([a, b] -> [x, y]) -> Pair x y`
+	 * `map :: Pair a b ~> (b -> c) -> Pair a c`
 	 *
-	 * Transforms the values in the `Pair` instance.
+	 * Transforms the right (second) value in the `Pair` instance.
 	 */
-	map<X, Y>(f: (p: [A, B]) => [X, Y]): Pair<X, Y> {
-		return Pair.of(f(this.data));
+	map<C>(f: (b: B) => C): Pair<A, C> {
+		const [ a, b ] = this.data;
+		return Pair.of([ a, f(b) ]);
 	}
 
 	/**

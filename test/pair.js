@@ -3,7 +3,7 @@ import { Pair } from '../src/pair';
 import test from 'tape';
 
 test('Pair', t => {
-	t.plan(4);
+	t.plan(7);
 
 	let pair = Pair.of([ 'foo', 42 ]);
 
@@ -18,9 +18,12 @@ test('Pair', t => {
 	);
 
 	t.deepEqual(
-		pair.map(([ s, n ]) => [s.toUpperCase(), n * 2]),
-		Pair.of([ 'FOO', 84 ]),
+		pair.map(n => n * 2),
+		Pair.of([ 'foo', 84 ]),
 		'Pair.map'
 	);
 
+	t.deepEqual(pair.toTuple(), [ 'foo', 42 ], 'pair.toTuple');
+	t.equal(pair.left(), 'foo', 'pair.left');
+	t.equal(pair.right(), 42, 'pair.right');
 });
