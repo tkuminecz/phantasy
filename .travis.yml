@@ -1,13 +1,13 @@
 language: node_js
 node_js:
-  - "6.1"
-  - "6.0"
-  - "5.0"
-  - "4.0"
+- '6.1'
+- '6.0'
+- '5.0'
+- '4.0'
 script:
-  - npm run flow && npm test && npm run test:coverage:coveralls
+- npm run flow && npm run test:coverage:coveralls
 after_success:
 - bash deploy.sh
 env:
   global:
-    - secure: "UmdCD/ToaW7CXbGI7G9RlmKj2jAYbDJ09Qjaue53ifssOE/vM+fmGz+rMmPVGKVFntlwFySfSifgE7ZMRPrLGWDDO+ZX0dCfSQ3g67eFQ2eOaXl+vaZX7MZ/E0P8kHTVOzsmNNcywPhSgvDfk0JrqqQ+wsF4RaPZ8233I1hY0HEA9IPYncW3lhkRn578zrTfBevIcZZhXxxAi0xQbyh79hsvG7fZuwyoGxXJ2zYAgEPZc2nPqHJff6tcMKcAmlAZJwGrB3LayWskKQJm9YxJF+QjWzmVYxunv7fgvFbmo0bmdO95hdSYs5L20C0pamEMMTqYLPG2xp8k3318eHXcpuOaa0vUL+eWv33bSbY6AxFhp/zz2CECL8lJU8mDYhi2UDuNPQJZrrzXO9K1KqZjmBct/S26RVbKeqx+UmiZXLL5qKGBLKuzy0GZmi9JbiglI559xTU1X7k9+sq1ydHm9p1Op68JGiCmVjRih+Sj0pekKjiy31ybZ9hm9ZhLzozxLkkqlm22+gle8EH2eu6z+pL08C9Wd5Ukiu6I6W/UG+v6KsrZig7+D+aF69wgNsebAgiM+Ail4W2H9iP+vhby4JjmKWniccLQ6ucEkseIm+1nDUV7rI3b/f4zEQ1Ld3SKH+I5k6NtNy9gthP78isd2PJxzdHyOEbFdtdfpW7qQas="
+    secure: fDpxuHa0wucLsSfWuu19sfJdrtdH1KtYMz+vJ06eNK0eS3nUGQ8gj1ieXtIEDmKZQgSv1pcFLgYGSKeAwdYzv26y/STucfYfkGQSia7Halp1S/NkBcxW4nPvmJ+QRuJb28InyFlsdGhMoKONdgeUcMS+ocrk2rUgEiUKc+ViVAjz/LbbYHtLBTmr7fIbeGNwP+tnu9yJ/e23i4F26t0Rz7Jkvakn5WZuEqts0K05Ao4wfifv7SadUeg3tN5JuYG95T/DFibRY2sL33SZNKS3ghQ/D/apCqT7sGnm0Z0RUFeIqJ7WQyRbLuX4D5dN28J4iph5FZ8dEqEI8LDtN7xxiXY+NJLHH8NT8GXGhBkFUpwo1YxYm7oCuFqp9iRZ8FmIwp2sQCnGmVE62s9bqlitPnRYPmNaZT4zlgIRwZTtHoLT+tK+lE/w5+/WGxGT1EmhD2+gs5xWWwJ4ZMg/VB1Vl1b77fKqENiLdWlq017Uj3q2XTtFOvlkG+2diKiPdzxlRqRnDANLw7akgbohhipyK3quhyBNnoiHnKTpJYQEyoAjW7DCiTdRckvtbqdj1K0K1FD7YOBKkc05cl25jTl/BfP/orwunPNoCa0J212u/KaFiU/yIadFUQCKeRvQCcq7kj2AZSW4tXRK8tllErurB0xfXiWl2if47jGRtAfR1ns=
