@@ -10,9 +10,6 @@ set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
 
-# build docs
-npm run docs
-
 cd docs/
 
 git init
@@ -22,6 +19,11 @@ git config user.email "tkuminecz@gmail.com"
 git remote add origin "https://$GH_TOKEN@github.com/tkuminecz/phantasy.git"
 git fetch origin
 git checkout -b gh-pages origin/gh-pages
+
+# build docs
+cd ..
+npm run docs
+cd docs/
 
 git commit -am "rebuilding pages @ ${rev}"
 git push origin gh-pages
