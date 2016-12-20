@@ -31,7 +31,7 @@
   "scripts": {
     "build": "make clean && make",
     "docs": "npm-run-all docs:*",
-    "docs:html": "documentation build src/** --name phantasy -f html -t node_modules/clean-documentation-theme -o docs",
+    "docs:html": "documentation build src/** --name $npm_package_name --project-version $npm_package_version -f html -o docs",
     "docs:md": "documentation build src/** -f md -o docs/api.md",
     "flow": "flow",
     "test:tap": "BABEL_ENV=test babel-tape-runner $(\\find test | \\grep \\.js)",
