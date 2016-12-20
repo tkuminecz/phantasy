@@ -27,46 +27,46 @@ Support for [Flow](http://flowtype.org/) is included for all types and should au
 
 ## Data Types
 
-#### [__`Identity`__](docs/identity.md)
+#### [__`Identity`__](https://tkuminecz.github.io/phantasy/#identity)
 
 Simple monadic container values without any special behaviors
 
-#### [__`Maybe`__](docs/maybe.md)
+#### [__`Maybe`__](https://tkuminecz.github.io/phantasy/#maybe)
 
 Monad for safely handling nullable values
 
-#### [__`Result`__](docs/result.md)
+#### [__`Result`__](https://tkuminecz.github.io/phantasy/#result)
 
 Monad representing either a success or an error value
 
-#### [__`Reader`__](docs/reader.md)
+#### [__`Reader`__](https://tkuminecz.github.io/phantasy/#reader)
 
 Monad that represents computations that can read data from a context
 
-#### [__`Writer`__](docs/writer.md)
+#### [__`Writer`__](https://tkuminecz.github.io/phantasy/#writer)
 
 Monad that represents computations that can write data to a context
 
-#### [__`State`__](docs/state.md)
+#### [__`State`__](https://tkuminecz.github.io/phantasy/#state)
 
 Monad that represents computations that can read and write data from a state
 
-#### [__`IO`__](docs/io.md)
+#### [__`IO`__](https://tkuminecz.github.io/phantasy/#io)
 
 Monad representing synchronous computations which may or may not be effectful
 
-#### [__`Task`__](docs/task.md)
+#### [__`Task`__](https://tkuminecz.github.io/phantasy/#task)
 
 Monad representing asynchronous computations that may succeed or fail and which may or may not be effectful
 
-#### [__`Eff`__](docs/eff.md)
+#### [__`Eff`__](https://tkuminecz.github.io/phantasy/#eff)
 
 Monad representing dependency-injected, explicitly-effectful synchronous computations
 
-#### [__`EffResult`__](docs/eff-result.md)
+#### [__`EffResult`__](https://tkuminecz.github.io/phantasy/#effresult)
 
 Monad representing dependency-injected, explicitly-effectful synchronous computations that may succeed or fail
 
-#### [__`EffTask`__](docs/eff-task.md)
+#### [__`EffTask`__](https://tkuminecz.github.io/phantasy/#efftask)
 
 Monad representing dependency-injected, explicitly-effectful asynchronous computations that may succeed or fail
