@@ -10,7 +10,7 @@ test('IO', t => {
 
 	const tIO = { t, mapper: ioMapper };
 
-	Util.testFunctor(tIO, IO);
+	Util.testFunctor(t, tIO, IO);
 	Util.testMonad(tIO, IO);
 	Util.testLift(tIO, IO);
 	Util.testLift2(tIO, IO);

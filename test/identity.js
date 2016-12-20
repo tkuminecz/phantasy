@@ -8,7 +8,7 @@ test('Identity', t => {
 
 	const tId = { t };
 
-	Util.testFunctor(tId, Identity);
+	Util.testFunctor(t, {}, Identity);
 	Util.testMonad(tId, Identity);
 	Util.testLift(tId, Identity);
 	Util.testLift2(tId, Identity);

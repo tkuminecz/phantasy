@@ -126,10 +126,24 @@ export class EffResult<E: {}, A, X> {
 	}
 
 	/**
-	 * Requires :: (e -> Result a x ) -> EffResult a x
+	 * Requires :: (e -> Result a x ) -> EffResult e a x
 	 */
 	static Requires<E: {}, A, X>(f: (e: E) => Result<A, X>): EffResult<E, A, X> {
 		return new EffResult(f);
+	}
+
+	/**
+	 * Val :: a -> Result e a x
+	 */
+	static Val<A>(a: A): EffResult<any, A, any> {
+		return EffResult.fromResult(Result.Val(a));
+	}
+
+	/**
+	 * Err :: x -> Result e a x
+	 */
+	static Err<X>(x: X): EffResult<any, any, X> {
+		return EffResult.fromResult(Result.Err(x));
 	}
 
 }
@@ -205,6 +219,20 @@ export class EffTask<E: {}, A, X> {
 	 */
 	static Requires<E: {}, A, X>(f: (e: E) => Task<A, X>): EffTask<E, A, X> {
 		return new EffTask(f);
+	}
+
+	/**
+	 * Success :: a -> EffTask e a x
+	 */
+	static Success<A>(a: A): EffTask<any, A, any> {
+		return EffTask.fromTask(Task.Success(a));
+	}
+
+	/**
+	 * Fail :: x -> EffTask e a x
+	 */
+	static Fail<X>(x: X): EffTask<any, any, X> {
+		return EffTask.fromTask(Task.Fail(x));
 	}
 
 }

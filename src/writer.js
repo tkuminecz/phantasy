@@ -33,6 +33,13 @@ export class Writer<E, A> {
 	}
 
 	/**
+	 * map :: Writer e a ~> (a -> b) -> Writer e b
+	 */
+	map<B>(f: (a: A) => B): Writer<E, B> {
+		return this.andThen(a => Writer.of(f(a)));
+	}
+
+	/**
 	 * andThen :: Write e a ~> (a -> Writer e b) -> Writer e b
 	 */
 	andThen<B>(next: (a: A) => Writer<E, B>): Writer<E, B> {

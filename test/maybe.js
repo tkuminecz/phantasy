@@ -1,4 +1,5 @@
 // @flow
+import * as Util from './test-util';
 import { Maybe } from '../src/maybe';
 import test from 'tape';
 
@@ -12,7 +13,9 @@ const doThrow = <A>(val: A, shouldThrow: bool): A => {
 };
 
 test('Maybe', t => {
-	t.plan(27);
+	t.plan(28);
+
+	Util.testFunctor(t, {}, Maybe);
 
 	// constructors
 	t.deepEqual(Just(2), Just(2));

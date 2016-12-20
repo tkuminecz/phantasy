@@ -19,18 +19,34 @@ const testVals = [
  *
  * Tests that the given class obeys the functor laws
  */
-export function testFunctor(o: { t: any, mapper?: Function }, FunctorClass: Class<*>) {
+export function testFunctor(t: tape$Context, opts: { mapper?: Function, tester?: Function }, FunctorClass: Class<*>) {
 	const {
-		t,
-		mapper = a => a
-	} = o;
+		mapper = a => a,
+		tester = (t: tape$Context, a, b, msg: string) => t.deepEqual(a, b, msg)
+	} = opts;
 
-	const fa = FunctorClass.of('foo');
-	t.deepEqual(
-		mapper(fa.map(a => a)),
-		mapper(fa),
-		'functor identity'
-	);
+	t.test(`${ FunctorClass.name } Functor`, t => {
+		t.plan(2);
+
+		const fa = FunctorClass.of('foo');
+
+		tester(
+			t,
+			mapper(fa.map(a => a)),
+			mapper(fa),
+			'identity'
+		);
+
+		const f = s => s + 'bar',
+			g = s => s.length;
+
+		tester(
+			t,
+			mapper(fa.map(a => f(g(a)))),
+			mapper(fa.map(g).map(f)),
+			'composition'
+		);
+	});
 }
 
 /**

@@ -18,7 +18,7 @@ test('Result', t => {
 
 	const tResult = { t };
 
-	Util.testFunctor(tResult, Result);
+	Util.testFunctor(t, tResult, Result);
 	Util.testMonad(tResult, Result);
 	// Util.testLift(tResult, Result);
 	// Util.testLift2(tResult, Result);
