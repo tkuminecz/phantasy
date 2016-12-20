@@ -13,18 +13,15 @@ rev=$(git rev-parse --short HEAD)
 # build docs
 npm run docs
 
-cd docs
+cd docs/
 
 git init
 git config user.name "Tim Kuminecz"
 git config user.email "tkuminecz@gmail.com"
 
-git remote add upstream "https://$GH_TOKEN@github.com/tkuminecz/phantasy.git"
-git fetch upstream
-git reset upstream/gh-pages
+git remote add origin "https://$GH_TOKEN@github.com/tkuminecz/phantasy.git"
+git fetch origin
+git checkout -b gh-pages origin/gh-pages
 
-touch .
-
-git add -A .
-git commit -m "rebuild pages at ${rev}"
-git push -q upstream HEAD:gh-pages
+git commit -am "rebuilding pages @ ${rev}"
+git push origin gh-pages
