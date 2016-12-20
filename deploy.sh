@@ -11,7 +11,7 @@ fi
 rev=$(git rev-parse --short HEAD)
 
 # build docs
-npm run documentation
+npm run docs
 
 cd docs
 
@@ -28,5 +28,3 @@ touch .
 git add -A .
 git commit -m "rebuild pages at ${rev}"
 git push -q upstream HEAD:gh-pages
-
-npm run test:coverage:coveralls

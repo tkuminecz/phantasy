@@ -4,6 +4,10 @@ node_js:
   - "6.0"
   - "5.0"
   - "4.0"
+script:
+  - npm run flow
+  - npm test
+  - npm run test:coverage:coveralls
 after_success:
 - bash deploy.sh
 env:
