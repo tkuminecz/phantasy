@@ -1,4 +1,5 @@
 // @flow
+import * as Util from './test-util';
 import { Writer } from '../src/writer';
 import test from 'tape';
 
@@ -8,7 +9,9 @@ function half(num): Writer<string, number> {
 }
 
 test('Writer', t => {
-	t.plan(6);
+	t.plan(7);
+
+	Util.testFunctor(t, {}, Writer);
 
 	t.deepEqual(half(8).runWriter(), [['I just halved 8'], 4], 'Writer.runWriter');
 	t.deepEqual(half(8).getEnv(), ['I just halved 8'], 'Writer.getEnv');

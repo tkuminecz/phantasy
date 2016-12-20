@@ -1,9 +1,12 @@
 // @flow
+import * as Util from './test-util';
 import { State } from '../src/state';
 import test from 'tape';
 
 test('State', t => {
-	t.plan(6);
+	t.plan(7);
+
+	Util.testFunctor(t, { mapper: s => s.runState() }, State);
 
 	t.deepEqual(State.of(42).runState('foo'), { state: 42, value: 42 }, 'runState');
 

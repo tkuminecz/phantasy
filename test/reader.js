@@ -1,4 +1,5 @@
 // @flow
+import * as Util from './test-util';
 import { Reader } from '../src/reader';
 import test from 'tape';
 
@@ -23,9 +24,11 @@ function getAge(): Reader<{ age: number }, number> {
 }
 
 test('Reader', t => {
-	t.plan(11);
+	t.plan(12);
 
 	const person = { name: 'person', age: 29 };
+
+	Util.testFunctor(t, { mapper: r => r.runReader({}) }, Reader);
 
 	t.equal(greet('tim').runReader('hello'), 'hello tim');
 	t.equal(sayInfo().runReader(person), `hey person, you're 29 years old!`);
