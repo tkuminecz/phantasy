@@ -10,6 +10,7 @@ set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
 
+mkdir docs
 cd docs/
 
 git init
