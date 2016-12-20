@@ -18,7 +18,7 @@ class Err<X> {
 /**
  * The `Result` monad
  *
- * Represents the possiblity of either a success value or an error value
+ * Represents the possiblity of either a success value or an error value.
  *
  * @example // create a "success" value
  * let a = Result.Val(42),
@@ -32,7 +32,7 @@ export class Result<A, X> {
 	data: Val<A> | Err<X>
 
 	/**
-	 * Constructs a new `Result` instance
+	 * Constructs a new `Result` instance.
 	 *
 	 * @private
 	 */
@@ -43,7 +43,7 @@ export class Result<A, X> {
 	/**
 	 * `cases :: Result a ~> { Val: a -> b, Err: x -> b } -> b`
 	 *
-	 * Performs a match against the possible `Result` cases and returns a value by executing the appropriate function
+	 * Performs a match against the possible `Result` cases and returns a value by executing the appropriate function.
 	 */
 	cases<B>(patterns: { Val: (a: A) => B, Err: (x: X) => B}): B {
 		if (this.data instanceof Val) {
@@ -68,7 +68,7 @@ export class Result<A, X> {
 	 * `andThen :: Result a x ~> (a -> Result b x) -> Result b x`
 	 *
 	 * Chains the success value of the `Result` instance
-	 * with another `Result`-producing function
+	 * with another `Result`-producing function.
 	 */
 	andThen<B>(next: (a: A) => Result<B, X>): Result<B, X> {
 		return this.cases({
@@ -93,7 +93,7 @@ export class Result<A, X> {
 	/**
 	 * `toMaybe :: Result a x ~> Maybe a`
 	 *
-	 * Returns the `Result` instance converted to a `Maybe`
+	 * Returns the `Result` instance converted to a `Maybe`.
 	 */
 	toMaybe(): Maybe<A> {
 		return this.cases({
@@ -105,7 +105,7 @@ export class Result<A, X> {
 	/**
 	 * `of :: a -> Result a x`
 	 *
-	 * Alias of `Result.Val`
+	 * Alias of `Result.Val`.
 	 */
 	static of<B>(value: B): Result<B, any> {
 		return Result.Val(value);
@@ -114,7 +114,7 @@ export class Result<A, X> {
 	/**
 	 * `Val :: a -> Result a x`
 	 *
-	 * Returns a `Result` which succeeds with the given value
+	 * Returns a `Result` which succeeds with the given value.
 	 */
 	static Val<B>(value: B): Result<B, any> {
 		return new Result(new Val(value));
@@ -123,7 +123,7 @@ export class Result<A, X> {
 	/**
 	 * `Err :: x -> Result a x`
 	 *
-	 * Returns a `Result` which fails with the given error value
+	 * Returns a `Result` which fails with the given error value.
 	 */
 	static Err<Y>(error: Y): Result<any, Y> {
 		return new Result(new Err(error));
@@ -133,7 +133,7 @@ export class Result<A, X> {
 	 * `fromThrowable :: (() -> a) -> Result a Error`
 	 *
 	 * Takes a function which may throw an exception and returns a `Result` which
-	 * either succeeds with the return value or fails with the thrown exception
+	 * either succeeds with the return value or fails with the thrown exception.
 	 */
 	static fromThrowable<B>(throwFn: () => B): Result<B, Error> {
 		try {

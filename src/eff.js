@@ -6,7 +6,9 @@ import { Task } from './task';
 /**
  * The `Eff` monad
  *
- * Represents synchronous computations which are both dependency-injected and explicitly effectful
+ * Represents synchronous computations which are both dependency-injected and
+ * explicitly effectful. `Eff` can be used for effectful code where the effect
+ * resolvers are injected. This allows the effect handling to be customizable.
  */
 export class Eff<E: {}, A> {
 
