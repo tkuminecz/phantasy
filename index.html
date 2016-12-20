@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>phantasy 0.10.5 | Documentation</title>
+  <title>phantasy 0.11.0 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,7 +14,7 @@
       <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>phantasy</h3>
-          <div class='mb1'><code>0.10.5</code></div>
+          <div class='mb1'><code>0.11.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -345,12 +345,6 @@
                     <li class='h5'><span>Static members</span></li>
                     
                       <li><a
-                        href='#IO.from'
-                        class='regular pre-open'>
-                        .from
-                      </a></li>
-                    
-                      <li><a
                         href='#IO.of'
                         class='regular pre-open'>
                         .of
@@ -379,12 +373,6 @@
                   
                     <ul class='list-reset py1-ul pl1'>
                       <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#IO#runIO'
-                        class='regular pre-open'>
-                        #runIO
-                      </a></li>
                       
                       <li><a
                         href='#IO#map'
@@ -545,24 +533,6 @@
                   
                     <ul class='list-reset py1-ul pl1'>
                       <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#Pair#toTuple'
-                        class='regular pre-open'>
-                        #toTuple
-                      </a></li>
-                      
-                      <li><a
-                        href='#Pair#left'
-                        class='regular pre-open'>
-                        #left
-                      </a></li>
-                      
-                      <li><a
-                        href='#Pair#right'
-                        class='regular pre-open'>
-                        #right
-                      </a></li>
                       
                       <li><a
                         href='#Pair#map'
@@ -927,9 +897,9 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
-                        href='#Task#runTask'
+                        href='#Task#constructor'
                         class='regular pre-open'>
-                        #runTask
+                        #constructor
                       </a></li>
                       
                       <li><a
@@ -1055,9 +1025,7 @@
   
 
   <p>The <code>Eff</code> monad</p>
-<p>Represents synchronous computations which are both dependency-injected and
-explicitly effectful. <code>Eff</code> can be used for effectful code where the effect
-resolvers are injected. This allows the effect handling to be customizable.</p>
+<p>Represents synchronous computations which are both dependency-injected and explicitly effectful</p>
 
 
   <div class='pre p1 fill-light mt0'>new Eff()</div>
@@ -3364,7 +3332,7 @@ with another <code>Identity</code>-producing function</p>
   
 
   <p>The <code>IO</code> monad</p>
-<p>Represents a potentially-effectful synchronous computation.</p>
+<p>Represents a potentially-effectful synchronous computation</p>
 
 
   <div class='pre p1 fill-light mt0'>new IO()</div>
@@ -3391,70 +3359,6 @@ with another <code>Identity</code>-producing function</p>
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='IO.from'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>from(f)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p><code>from :: (() -> a) -> IO a</code></p>
-<p>Returns a <code>IO</code> instance wrapping the given function.</p>
-
-
-  <div class='pre p1 fill-light mt0'>from(f: function (): A): <a href="#io">IO</a>&#x3C;A></div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>f</span> <code class='quiet'>(function (): A)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#io">IO</a>&#x3C;A></code>
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
     <div class='border-bottom' id='IO.of'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -3468,7 +3372,7 @@ with another <code>Identity</code>-producing function</p>
   
 
   <p><code>of :: a -> IO a</code></p>
-<p>Returns an <code>IO</code> instance that always produces the given value.</p>
+<p>Returns an <code>IO</code> instance that always produces the given value</p>
 
 
   <div class='pre p1 fill-light mt0'>of(value: A): <a href="#io">IO</a>&#x3C;A></div>
@@ -3507,12 +3411,6 @@ with another <code>Identity</code>-producing function</p>
 
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">let</span> a = IO.of(<span class="hljs-number">42</span>);</pre>
-    
   
 
   
@@ -3725,70 +3623,11 @@ with another <code>Identity</code>-producing function</p>
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='IO#runIO'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>runIO()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p><code>runIO :: IO a ~> () -> a</code></p>
-<p>Executes the function contained in the <code>IO</code> instance and returns the produced value. Note that any side-effects in the <code>IO</code> would be performed at this time.</p>
-
-
-  <div class='pre p1 fill-light mt0'>runIO(): A</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>A</code>
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">let</span> a = IO.of(<span class="hljs-number">42</span>);
-
-a.runIO() === <span class="hljs-number">42</span>;</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
     <div class='border-bottom' id='IO#map'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>map(f)</span>
+            <span class='code strong strong truncate'>map(transform)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -3797,10 +3636,10 @@ a.runIO() === <span class="hljs-number">42</span>;</pre>
   
 
   <p><code>map :: IO a ~> (a -> b) -> IO b</code></p>
-<p>Transforms the result of the <code>IO</code> instance.</p>
+<p>Transforms the result of the <code>IO</code> instance</p>
 
 
-  <div class='pre p1 fill-light mt0'>map(f: function (a: A): B): <a href="#io">IO</a>&#x3C;B></div>
+  <div class='pre p1 fill-light mt0'>map(transform: function (a: A): B): <a href="#io">IO</a>&#x3C;B></div>
   
   
 
@@ -3816,7 +3655,7 @@ a.runIO() === <span class="hljs-number">42</span>;</pre>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>f</span> <code class='quiet'>(function (a: A): B)</code>
+            <span class='code bold'>transform</span> <code class='quiet'>(function (a: A): B)</code>
 	    
           </div>
           
@@ -3836,14 +3675,6 @@ a.runIO() === <span class="hljs-number">42</span>;</pre>
 
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">let</span> a = IO.of(<span class="hljs-number">2</span>);
-
-a.map(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a * <span class="hljs-number">2</span>) === IO.of(<span class="hljs-number">4</span>);</pre>
-    
   
 
   
@@ -3869,7 +3700,7 @@ a.map(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span
   
 
   <p><code>andThen :: IO a ~> (a -> IO b) -> IO b</code></p>
-<p>Chains the result of the <code>IO</code> instance with another <code>IO</code>-producing function.</p>
+<p>Chains the result of the <code>IO</code> instance with another <code>IO</code>-producing function</p>
 
 
   <div class='pre p1 fill-light mt0'>andThen(next: function (a: A): <a href="#io">IO</a>&#x3C;B>): <a href="#io">IO</a>&#x3C;B></div>
@@ -3908,14 +3739,6 @@ a.map(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span
 
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">let</span> a = IO.of(<span class="hljs-number">42</span>);
-
-a.andThen(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> IO.of(a / <span class="hljs-number">2</span>)) == IO.of(<span class="hljs-number">24</span>);</pre>
-    
   
 
   
@@ -4871,8 +4694,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
   </div>
   
 
-  <p>The <code>Pair</code> functor</p>
-<p>Represents a pair of values.</p>
+  <p>Pair functor</p>
 
 
   <div class='pre p1 fill-light mt0'>new Pair()</div>
@@ -4911,8 +4733,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
 
   
 
-  <p><code>from :: a -> b -> Pair a b</code></p>
-<p>Returns a <code>Pair</code> containing the given two values.</p>
+  <p>from :: a -> b -> Pair a b</p>
 
 
   <div class='pre p1 fill-light mt0'>from(a: A, b: B): <a href="#pair">Pair</a>&#x3C;A, B></div>
@@ -4975,7 +4796,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>of(tuple)</span>
+            <span class='code strong strong truncate'>of(data)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -4983,11 +4804,10 @@ contained value into the given function, otherwise returns <code>Nothing</code><
 
   
 
-  <p><code>of :: [a, b] -> Pair a b</code></p>
-<p>Returns a <code>Pair</code> containing the given tuple of values.</p>
+  <p>of :: [a, b] -> Pair a b</p>
 
 
-  <div class='pre p1 fill-light mt0'>of(tuple: [A, B]): <a href="#pair">Pair</a>&#x3C;A, B></div>
+  <div class='pre p1 fill-light mt0'>of(data: [A, B]): <a href="#pair">Pair</a>&#x3C;A, B></div>
   
   
 
@@ -5003,7 +4823,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>tuple</span> <code class='quiet'>([A, B])</code>
+            <span class='code bold'>data</span> <code class='quiet'>([A, B])</code>
 	    
           </div>
           
@@ -5043,159 +4863,6 @@ contained value into the given function, otherwise returns <code>Nothing</code><
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='Pair#toTuple'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>toTuple()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p><code>toTuple :: Pair a b ~> [a, b]</code></p>
-<p>Returns the tuple contained in the <code>Pair</code></p>
-
-
-  <div class='pre p1 fill-light mt0'>toTuple(): [A, B]</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>[A, B]</code>
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='Pair#left'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>left()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p><code>left :: Pair a b ~> a</code></p>
-<p>Returns the left (first) value in the <code>Pair</code>.</p>
-
-
-  <div class='pre p1 fill-light mt0'>left(): A</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>A</code>
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='Pair#right'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>right()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>right :: Pair a b ~> b</p>
-<p>Returns the right (second) value in the <code>Pair</code>.</p>
-
-
-  <div class='pre p1 fill-light mt0'>right(): B</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>B</code>
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
     <div class='border-bottom' id='Pair#map'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -5208,11 +4875,10 @@ contained value into the given function, otherwise returns <code>Nothing</code><
 
   
 
-  <p><code>map :: Pair a b ~> (b -> c) -> Pair a c</code></p>
-<p>Transforms the right (second) value in the <code>Pair</code> instance.</p>
+  <p>map :: Pair a b ~> ([a, b] -> [x, y]) -> Pair x y</p>
 
 
-  <div class='pre p1 fill-light mt0'>map(f: function (b: B): C): <a href="#pair">Pair</a>&#x3C;A, C></div>
+  <div class='pre p1 fill-light mt0'>map(f: function (p: [A, B]): [X, Y]): <a href="#pair">Pair</a>&#x3C;X, Y></div>
   
   
 
@@ -5228,7 +4894,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>f</span> <code class='quiet'>(function (b: B): C)</code>
+            <span class='code bold'>f</span> <code class='quiet'>(function (p: [A, B]): [X, Y])</code>
 	    
           </div>
           
@@ -5242,7 +4908,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#pair">Pair</a>&#x3C;A, C></code>
+      <code><a href="#pair">Pair</a>&#x3C;X, Y></code>
     
   
 
@@ -6099,7 +5765,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
   
 
   <p>The <code>Result</code> monad</p>
-<p>Represents the possiblity of either a success value or an error value.</p>
+<p>Represents the possiblity of either a success value or an error value</p>
 
 
   <div class='pre p1 fill-light mt0'>new Result()</div>
@@ -6150,7 +5816,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
   
 
   <p><code>of :: a -> Result a x</code></p>
-<p>Alias of <code>Result.Val</code>.</p>
+<p>Alias of <code>Result.Val</code></p>
 
 
   <div class='pre p1 fill-light mt0'>of(value: B): <a href="#result">Result</a>&#x3C;B, any></div>
@@ -6214,7 +5880,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
   
 
   <p><code>Val :: a -> Result a x</code></p>
-<p>Returns a <code>Result</code> which succeeds with the given value.</p>
+<p>Returns a <code>Result</code> which succeeds with the given value</p>
 
 
   <div class='pre p1 fill-light mt0'>Val(value: B): <a href="#result">Result</a>&#x3C;B, any></div>
@@ -6278,7 +5944,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
   
 
   <p><code>Err :: x -> Result a x</code></p>
-<p>Returns a <code>Result</code> which fails with the given error value.</p>
+<p>Returns a <code>Result</code> which fails with the given error value</p>
 
 
   <div class='pre p1 fill-light mt0'>Err(error: Y): <a href="#result">Result</a>&#x3C;any, Y></div>
@@ -6343,7 +6009,7 @@ contained value into the given function, otherwise returns <code>Nothing</code><
 
   <p><code>fromThrowable :: (() -> a) -> Result a Error</code></p>
 <p>Takes a function which may throw an exception and returns a <code>Result</code> which
-either succeeds with the return value or fails with the thrown exception.</p>
+either succeeds with the return value or fails with the thrown exception</p>
 
 
   <div class='pre p1 fill-light mt0'>fromThrowable(throwFn: function (): B): <a href="#result">Result</a>&#x3C;B, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>></div>
@@ -6415,7 +6081,7 @@ either succeeds with the return value or fails with the thrown exception.</p>
   
 
   <p><code>cases :: Result a ~> { Val: a -> b, Err: x -> b } -> b</code></p>
-<p>Performs a match against the possible <code>Result</code> cases and returns a value by executing the appropriate function.</p>
+<p>Performs a match against the possible <code>Result</code> cases and returns a value by executing the appropriate function</p>
 
 
   <div class='pre p1 fill-light mt0'>cases(patterns: {Val: function (a: A): B, Err: function (x: X): B}): B</div>
@@ -6543,7 +6209,7 @@ either succeeds with the return value or fails with the thrown exception.</p>
 
   <p><code>andThen :: Result a x ~> (a -> Result b x) -> Result b x</code></p>
 <p>Chains the success value of the <code>Result</code> instance
-with another <code>Result</code>-producing function.</p>
+with another <code>Result</code>-producing function</p>
 
 
   <div class='pre p1 fill-light mt0'>andThen(next: function (a: A): <a href="#result">Result</a>&#x3C;B, X>): <a href="#result">Result</a>&#x3C;B, X></div>
@@ -6672,7 +6338,7 @@ with another <code>Result</code>-producing function.</p>
   
 
   <p><code>toMaybe :: Result a x ~> Maybe a</code></p>
-<p>Returns the <code>Result</code> instance converted to a <code>Maybe</code>.</p>
+<p>Returns the <code>Result</code> instance converted to a <code>Maybe</code></p>
 
 
   <div class='pre p1 fill-light mt0'>toMaybe(): <a href="#maybe">Maybe</a>&#x3C;A></div>
@@ -7345,8 +7011,7 @@ with another <code>Result</code>-producing function.</p>
   </div>
   
 
-  <p>The <code>Task</code> monad</p>
-<p>Represents an asynchronous computation which may succeed or fail. They are very similar to <code>Promise</code>s.</p>
+  <p>The Task monad</p>
 
 
   <div class='pre p1 fill-light mt0'>new Task()</div>
@@ -7385,8 +7050,7 @@ with another <code>Result</code>-producing function.</p>
 
   
 
-  <p><code>of :: a -> Task a x</code></p>
-<p>Alias of <code>Task.Success</code>.</p>
+  <p>of :: a -> Task a x</p>
 
 
   <div class='pre p1 fill-light mt0'>of(a: B): <a href="#task">Task</a>&#x3C;B, any></div>
@@ -7449,8 +7113,8 @@ with another <code>Result</code>-producing function.</p>
 
   
 
-  <p><code>Success :: a -> Task a x</code></p>
-<p>Returns a <code>Task</code> that always succeeds with the given value.</p>
+  <p>Success :: a -> Task a x</p>
+<p>Returns a Task that always succeeds with the given value</p>
 
 
   <div class='pre p1 fill-light mt0'>Success(a: B): <a href="#task">Task</a>&#x3C;B, any></div>
@@ -7513,8 +7177,8 @@ with another <code>Result</code>-producing function.</p>
 
   
 
-  <p><code>Fail :: x -> Task a x</code></p>
-<p>Returns a <code>Task</code> that always fails with the given value.</p>
+  <p>Fail :: x -> Task a x</p>
+<p>Returns a Task that always fails with the given value</p>
 
 
   <div class='pre p1 fill-light mt0'>Fail(x: Y): <a href="#task">Task</a>&#x3C;any, Y></div>
@@ -7569,7 +7233,7 @@ with another <code>Result</code>-producing function.</p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>fromResult(result)</span>
+            <span class='code strong strong truncate'>fromResult(res)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -7577,11 +7241,10 @@ with another <code>Result</code>-producing function.</p>
 
   
 
-  <p><code>fromResult :: Result a x -> Task a x</code></p>
-<p>Returns a <code>Task</code> equivalent to the given <code>Result</code> instance.</p>
+  <p>fromResult :: Result a x -> Task a x</p>
 
 
-  <div class='pre p1 fill-light mt0'>fromResult(result: <a href="#result">Result</a>&#x3C;A, X>): <a href="#task">Task</a>&#x3C;A, X></div>
+  <div class='pre p1 fill-light mt0'>fromResult(res: <a href="#result">Result</a>&#x3C;B, Y>): <a href="#task">Task</a>&#x3C;B, Y></div>
   
   
 
@@ -7597,7 +7260,7 @@ with another <code>Result</code>-producing function.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>result</span> <code class='quiet'>(<a href="#result">Result</a>&#x3C;A, X>)</code>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="#result">Result</a>&#x3C;B, Y>)</code>
 	    
           </div>
           
@@ -7611,7 +7274,7 @@ with another <code>Result</code>-producing function.</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#task">Task</a>&#x3C;A, X></code>
+      <code><a href="#task">Task</a>&#x3C;B, Y></code>
     
   
 
@@ -7641,9 +7304,7 @@ with another <code>Result</code>-producing function.</p>
 
   
 
-  <p><code>fromIO :: IO a -> Task a x</code></p>
-<p>Returns a <code>Task</code> which always succeeds with
-the value produced by the given <code>IO</code> instance.</p>
+  <p>fromIO :: IO a -> Task a x</p>
 
 
   <div class='pre p1 fill-light mt0'>fromIO(io: <a href="#io">IO</a>&#x3C;B>): <a href="#task">Task</a>&#x3C;B, any></div>
@@ -7706,8 +7367,8 @@ the value produced by the given <code>IO</code> instance.</p>
 
   
 
-  <p><code>fromPromise :: Promise a -> Task a Error</code></p>
-<p>Returns a <code>Task</code> which is resolved to the same resolution as the given <code>Promise</code>.</p>
+  <p>fromPromise :: Promise a -> Task a Error</p>
+<p>Converts a promise to a task</p>
 
 
   <div class='pre p1 fill-light mt0'>fromPromise(promise: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;A>): <a href="#task">Task</a>&#x3C;A, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>?></div>
@@ -7770,9 +7431,7 @@ the value produced by the given <code>IO</code> instance.</p>
 
   
 
-  <p><code>fromPromiseFunc :: (() -> Promise a) -> Task a Error</code></p>
-<p>Returns a <code>Task</code> which is resolved to the same resolution
-as the <code>Promise</code> produced by the given function.</p>
+  <p>fromPromiseFunc :: (() -> Promise a) -> Task a Error</p>
 
 
   <div class='pre p1 fill-light mt0'>fromPromiseFunc(promiseFn: function (): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;A>): <a href="#task">Task</a>&#x3C;A, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>?></div>
@@ -7827,7 +7486,7 @@ as the <code>Promise</code> produced by the given function.</p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>fromCallback(callbackFn)</span>
+            <span class='code strong strong truncate'>fromCallback(fn)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -7835,10 +7494,10 @@ as the <code>Promise</code> produced by the given function.</p>
 
   
 
-  <p><code>fromCallback :: (x -> a -> ()) -> Task a x</code></p>
+  <p>fromCallback :: (x -> a -> ()) -> Task a x</p>
 
 
-  <div class='pre p1 fill-light mt0'>fromCallback(callbackFn: function (cb: function (e: Y, v: B): void): void): <a href="#task">Task</a>&#x3C;B, Y></div>
+  <div class='pre p1 fill-light mt0'>fromCallback(fn: function (cb: function (e: Y, v: B): void): void): <a href="#task">Task</a>&#x3C;B, Y></div>
   
   
 
@@ -7854,7 +7513,7 @@ as the <code>Promise</code> produced by the given function.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>callbackFn</span> <code class='quiet'>(function (cb: function (e: Y, v: B): void): void)</code>
+            <span class='code bold'>fn</span> <code class='quiet'>(function (cb: function (e: Y, v: B): void): void)</code>
 	    
           </div>
           
@@ -7890,7 +7549,7 @@ as the <code>Promise</code> produced by the given function.</p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>fromThrowable(throwFn)</span>
+            <span class='code strong strong truncate'>fromThrowable(fn)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -7898,12 +7557,10 @@ as the <code>Promise</code> produced by the given function.</p>
 
   
 
-  <p><code>fromThrowable :: (() -> a) -> Task a Error</code></p>
-<p>Takes a function which may throw an exception and returns a <code>Task</code> that
-either succeeds with the produced value or fails with the thrown exception.</p>
+  <p>fromThrowable :: (() -> a) -> Task a Error</p>
 
 
-  <div class='pre p1 fill-light mt0'>fromThrowable(throwFn: function (): A): <a href="#task">Task</a>&#x3C;A, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>></div>
+  <div class='pre p1 fill-light mt0'>fromThrowable(fn: function (): A): <a href="#task">Task</a>&#x3C;A, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>></div>
   
   
 
@@ -7919,7 +7576,7 @@ either succeeds with the produced value or fails with the thrown exception.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>throwFn</span> <code class='quiet'>(function (): A)</code>
+            <span class='code bold'>fn</span> <code class='quiet'>(function (): A)</code>
 	    
           </div>
           
@@ -7963,11 +7620,10 @@ either succeeds with the produced value or fails with the thrown exception.</p>
 
   
 
-  <p><code>lift :: (a -> b) -> Task a x -> Task b x</code></p>
-<p>Takes an unary function an returns an equivalent function that operates on <code>Task</code> instances</p>
+  <p>lift :: (a -> b) -> Task a x -> Task b x</p>
 
 
-  <div class='pre p1 fill-light mt0'>lift(f: function (t: A): B): function (ta: <a href="#task">Task</a>&#x3C;A, X>): <a href="#task">Task</a>&#x3C;B, X></div>
+  <div class='pre p1 fill-light mt0'>lift(f: function (t: T): U): function (tt: <a href="#task">Task</a>&#x3C;T, X>): <a href="#task">Task</a>&#x3C;U, X></div>
   
   
 
@@ -7983,7 +7639,7 @@ either succeeds with the produced value or fails with the thrown exception.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>f</span> <code class='quiet'>(function (t: A): B)</code>
+            <span class='code bold'>f</span> <code class='quiet'>(function (t: T): U)</code>
 	    
           </div>
           
@@ -7997,7 +7653,7 @@ either succeeds with the produced value or fails with the thrown exception.</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>function (ta: <a href="#task">Task</a>&#x3C;A, X>): <a href="#task">Task</a>&#x3C;B, X></code>
+      <code>function (tt: <a href="#task">Task</a>&#x3C;T, X>): <a href="#task">Task</a>&#x3C;U, X></code>
     
   
 
@@ -8027,11 +7683,10 @@ either succeeds with the produced value or fails with the thrown exception.</p>
 
   
 
-  <p><code>lift2 :: (a -> b -> c) -> Task a x -> Task b x -> Task c x</code></p>
-<p>Takes an binary function an returns an equivalent function that operates on <code>Task</code> instances</p>
+  <p>lift2 :: (a -> b -> c) -> Task a x -> Task b x -> Task c x</p>
 
 
-  <div class='pre p1 fill-light mt0'>lift2(f: function (t: A, u: B): C): function (ta: <a href="#task">Task</a>&#x3C;A, X>, tb: <a href="#task">Task</a>&#x3C;B, X>): <a href="#task">Task</a>&#x3C;C, X></div>
+  <div class='pre p1 fill-light mt0'>lift2(f: function (t: T, u: U): V): any</div>
   
   
 
@@ -8047,7 +7702,7 @@ either succeeds with the produced value or fails with the thrown exception.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>f</span> <code class='quiet'>(function (t: A, u: B): C)</code>
+            <span class='code bold'>f</span> <code class='quiet'>(function (t: T, u: U): V)</code>
 	    
           </div>
           
@@ -8061,7 +7716,7 @@ either succeeds with the produced value or fails with the thrown exception.</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>function (ta: <a href="#task">Task</a>&#x3C;A, X>, tb: <a href="#task">Task</a>&#x3C;B, X>): <a href="#task">Task</a>&#x3C;C, X></code>
+      <code>any</code>
     
   
 
@@ -8091,8 +7746,7 @@ either succeeds with the produced value or fails with the thrown exception.</p>
 
   
 
-  <p><code>lift3 :: (a -> b -> c -> d) -> Task a x -> Task b x -> Task c x -> Task d x</code></p>
-<p>Takes an ternary function an returns an equivalent function that operates on <code>Task</code> instances</p>
+  <p>lift3 :: (a -> b -> c -> d) -> Task a x -> Task b x -> Task c x -> Task d x</p>
 
 
   <div class='pre p1 fill-light mt0'>lift3(f: function (a: A, b: B, c: C): D): any</div>
@@ -8151,11 +7805,11 @@ either succeeds with the produced value or fails with the thrown exception.</p>
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='Task#runTask'>
+    <div class='border-bottom' id='Task#constructor'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>runTask(onSuccess, onFailure)</span>
+            <span class='code strong strong truncate'>constructor(runTask)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -8163,12 +7817,10 @@ either succeeds with the produced value or fails with the thrown exception.</p>
 
   
 
-  <p><code>runTask:: Task a x ~> ((a -> void) -> (x -> void)) -> void</code></p>
-<p>Takes success and error callbacks and executes the <code>Task</code>. The appropriate
-callback is called with produced value depending on the resolution of the <code>Task</code>.</p>
+  <p>Constructs a new Task instance</p>
 
 
-  <div class='pre p1 fill-light mt0'>runTask(onSuccess: function (a: A): void, onFailure: function (x: X): void): void</div>
+  <div class='pre p1 fill-light mt0'>constructor(runTask: TaskExecutor&#x3C;A, X>)</div>
   
   
 
@@ -8184,15 +7836,7 @@ callback is called with produced value depending on the resolution of the <code>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>onSuccess</span> <code class='quiet'>(function (a: A): void)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>onFailure</span> <code class='quiet'>(function (x: X): void)</code>
+            <span class='code bold'>runTask</span> <code class='quiet'>(TaskExecutor&#x3C;A, X>)</code>
 	    
           </div>
           
@@ -8203,11 +7847,6 @@ callback is called with produced value depending on the resolution of the <code>
 
   
 
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>void</code>
-    
   
 
   
@@ -8236,8 +7875,8 @@ callback is called with produced value depending on the resolution of the <code>
 
   
 
-  <p><code>map :: Task a x ~> (a -> b) -> Task b x</code></p>
-<p>Transforms the result of the <code>Task</code> if successful.</p>
+  <p>map :: Task a x ~> (a -> b) -> Task b x</p>
+<p>Transforms the result of this task if successful</p>
 
 
   <div class='pre p1 fill-light mt0'>map(f: function (a: A): B): <a href="#task">Task</a>&#x3C;B, X></div>
@@ -8300,9 +7939,9 @@ callback is called with produced value depending on the resolution of the <code>
 
   
 
-  <p><code>andThen :: Task a x ~> (a -> Task b x) -> Task b x</code></p>
-<p>Passes the result of the <code>Task</code> instance into
-another task-producing function if successful.</p>
+  <p>andThen :: Task a x ~> (a -> Task b x) -> Task b x</p>
+<p>Passes the result of this task into another task-producing
+function if successful</p>
 
 
   <div class='pre p1 fill-light mt0'>andThen(next: function (a: A): <a href="#task">Task</a>&#x3C;B, X>): <a href="#task">Task</a>&#x3C;B, X></div>
@@ -8365,8 +8004,8 @@ another task-producing function if successful.</p>
 
   
 
-  <p><code>handleError :: Task a x ~> (x -> Task a x) -> Task a x</code></p>
-<p>Handles a failed task result.</p>
+  <p>handleError :: Task a x ~> (x -> Task a x) -> Task a x</p>
+<p>Handles a failed task result</p>
 
 
   <div class='pre p1 fill-light mt0'>handleError(handle: function (x: X): <a href="#task">Task</a>&#x3C;A, any>): <a href="#task">Task</a>&#x3C;A, any></div>
@@ -8429,9 +8068,7 @@ another task-producing function if successful.</p>
 
   
 
-  <p><code>toMaybe :: Task a x ~> Task (Maybe a) x</code></p>
-<p>Converts the <code>Task</code> instance into a <code>Task</code>
-that always succeeds with a <code>Maybe</code> value.</p>
+  <p>toMaybe :: Task a x ~> Task (Maybe a) x</p>
 
 
   <div class='pre p1 fill-light mt0'>toMaybe(): <a href="#task">Task</a>&#x3C;<a href="#maybe">Maybe</a>&#x3C;A>, any></div>
