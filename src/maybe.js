@@ -30,9 +30,19 @@ type MaybeData<A> = Just<A> | Nothing
 /**
  * The `Maybe` monad
  *
- * Represents the possibility of a value or nothing. Commonly used
- * to safely deal with nullable values because it is composable and
- * forces the developer to explicitly handle the null case.
+ * Represents the possibility of the presence or absence of a value.
+ * Commonly used to safely deal with nullable values because it is
+ * composable and forces the developer to explicitly handle the null case.
+ *
+ * @example // construct a Maybe with a value
+ * let some =  Maybe.Just(42);
+ *
+ * // construct a maybe absent of a value
+ * let none = Maybe.Nothing;
+ *
+ * // create Maybes from nullable values
+ * let ma = Maybe.of('foo'),
+ * 	mb = Maybe.of(null);
  */
 export class Maybe<A> {
 
@@ -65,7 +75,7 @@ export class Maybe<A> {
 	/**
 	 * `isJust :: Maybe a ~> () -> Bool`
 	 *
-	 * Returns `true` if the instance contains a value
+	 * Returns `true` if the `Maybe` instance contains a value
 	 */
 	isJust(): bool {
 		return this.cases({
@@ -77,7 +87,7 @@ export class Maybe<A> {
 	/**
 	 * `isNothing :: Maybe a ~> () -> Bool`
 	 *
-	 * Returns `true` if the instance is absent of value
+	 * Returns `true` if the `Maybe` instance is absent of value
 	 */
 	isNothing(): bool {
 		return !this.isJust();
@@ -102,9 +112,9 @@ export class Maybe<A> {
 	 * If `Just`, returns `Just` the value transformed by
 	 * the given function, otherwise returns `Nothing`
 	 */
-	map<B>(transform: (a: A) => B): Maybe<B> {
+	map<B>(f: (a: A) => B): Maybe<B> {
 		return (this.data instanceof Just)
-			? Maybe.Just(transform(this.data.value))
+			? Maybe.Just(f(this.data.value))
 			: Maybe.Nothing;
 	}
 
@@ -135,7 +145,7 @@ export class Maybe<A> {
 	/**
 	 * `of :: a -> Maybe a`
 	 *
-	 * Takes a nullable value and constructs a new `Maybe` instance containing it
+	 * Returns `Maybe.Just` of the given value if it is not null and `Maybe.Nothing` otherwise
 	 */
 	static of(a: ?A): Maybe<A> {
 		return (a == null)
@@ -146,7 +156,7 @@ export class Maybe<A> {
 	/**
 	 * `Just :: a -> Maybe a`
 	 *
-	 * Data constructor for indicating the presence of a value
+	 * Returns a a `Maybe` instance containing the given value
 	 */
 	static Just<A>(a: A): Maybe<A> {
 		return new Maybe(new Just(a));
@@ -155,7 +165,7 @@ export class Maybe<A> {
 	/**
 	 * `Nothing :: Maybe a`
 	 *
-	 * Data constructor for indicating the absence of a value
+	 * A `Maybe` instance which is absent of a value
 	 */
 	static Nothing = (new Maybe(new Nothing()): any);
 
@@ -180,25 +190,25 @@ export class Maybe<A> {
 	 *
 	 * Takes an unary function and returns an equivalent unary function which operates on `Maybe` values
 	 */
-	static lift<A, B>(f: (a: A) => B): * {
+	static lift<A, B>(f: (a: A) => B): (a: Maybe<A>) => Maybe<B> {
 		return (ma) => ma.andThen(a => Maybe.of(f(a)));
 	}
 
 	/**
-	 * `lift2 :: (a -> b -> c) -> Maybe a -> Maybe b -> Maybe c`
+	 * `lift2 :: (a -> b -> c) -> (Maybe a -> Maybe b) -> Maybe c`
 	 *
 	 * Takes an binary function and returns an equivalent binary function which operates on `Maybe` values
 	 */
-	static lift2<A, B, C>(f: (a: A, b: B) => C): * {
+	static lift2<A, B, C>(f: (a: A, b: B) => C): (a: Maybe<A>, b: Maybe<B>) => Maybe<C> {
 		return (ma, mb) => ma.andThen(a => mb.andThen(b => Maybe.of(f(a, b))));
 	}
 
 	/**
-	 * `lift3 :: (a -> b -> c -> d) -> Maybe a -> Maybe b -> Maybe c -> Maybe d`
+	 * `lift3 :: (a -> b -> c -> d) -> (Maybe a -> Maybe b -> Maybe c) -> Maybe d`
 	 *
 	 * Takes an ternary function and returns an equivalent ternary function which operates on `Maybe` values
 	 */
-	static lift3<A, B, C, D>(f: (a: A, b: B, c: C) => D): * {
+	static lift3<A, B, C, D>(f: (a: A, b: B, c: C) => D): (a: Maybe<A>, b: Maybe<B>, c: Maybe<C>) => Maybe<D> {
 		return (ma, mb, mc) => ma.andThen(a => mb.andThen(b => mc.andThen(c => Maybe.of(f(a, b, c)))));
 	}
 
