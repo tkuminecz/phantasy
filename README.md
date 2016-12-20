@@ -5,26 +5,68 @@
 
 A collection of [Flow](http://flowtype.org/)-aware algebraic data types for JavaScript
 
+## Installation
+
+Run
+```
+$ npm install --save phantasy
+```
+or
+```
+$ yarn add phantasy
+```
+
+## Usage
+
+Data types can be imported directly from the `phantasy` module
+```
+import { Maybe, Task } from 'phantasy';
+```
+
+Support for [Flow](http://flowtype.org/) is included for all types and should automatically integrate with existing projects.
+
 ## Data Types
 
-#### __`Identity`__
+#### [__`Identity`__](docs/identity.md)
 
-#### __`Maybe`__
+Simple monadic container values without any special behaviors
 
-#### __`Result`__
+#### [__`Maybe`__](docs/maybe.md)
 
-#### __`Reader`__
+Monad for safely handling nullable values
 
-#### __`Writer`__
+#### [__`Result`__](docs/result.md)
 
-#### __`State`__
+Monad representing either a success or an error value
 
-#### __`IO`__
+#### [__`Reader`__](docs/reader.md)
 
-#### __`Task`__
+Monad that represents computations that can read data from a context
 
-#### __`Eff`__
+#### [__`Writer`__](docs/writer.md)
 
-#### __`EffResult`__
+Monad that represents computations that can write data to a context
 
-#### __`EffTask`__
+#### [__`State`__](docs/state.md)
+
+Monad that represents computations that can read and write data from a state
+
+#### [__`IO`__](docs/io.md)
+
+Monad representing synchronous computations which may or may not be effectful
+
+#### [__`Task`__](docs/task.md)
+
+Monad representing asynchronous computations that may succeed or fail and which may or may not be effectful
+
+#### [__`Eff`__](docs/eff.md)
+
+Monad representing dependency-injected, explicitly-effectful synchronous computations
+
+#### [__`EffResult`__](docs/eff-result.md)
+
+Monad representing dependency-injected, explicitly-effectful synchronous computations that may succeed or fail
+
+#### [__`EffTask`__](docs/eff-task.md)
+
+Monad representing dependency-injected, explicitly-effectful asynchronous computations that may succeed or fail
