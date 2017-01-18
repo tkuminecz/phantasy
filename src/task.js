@@ -131,9 +131,23 @@ export class Task<A, X> {
 	}
 
 	/**
+	 * fromPromiseFn :: (() -> Promise a) -> Task a Error
+	 */
+	static fromPromiseFn<A>(promiseFn: () => Promise<A>): Task<A, Error> {
+		return Task.fromPromiseFunction(promiseFn);
+	}
+
+	/**
 	 * fromPromiseFunc :: (() -> Promise a) -> Task a Error
 	 */
 	static fromPromiseFunc<A>(promiseFn: () => Promise<A>): Task<A, Error> {
+		return Task.fromPromiseFunction(promiseFn);
+	}
+
+	/**
+	 * fromPromiseFunction :: (() -> Promise a) -> Task a Error
+	 */
+	static fromPromiseFunction<A>(promiseFn: () => Promise<A>): Task<A, Error> {
 		return Task.fromPromise(promiseFn());
 	}
 

@@ -190,10 +190,19 @@ export class EffTask<E: {}, A, X> {
 	}
 
 	/**
-	 * `andThen :: EffTask e a x ~> (a -> EffTask f b x) -> EffTask e b x`
+	 * `andThen :: EffTask e a x ~> (a -> EffTask f b x) -> EffTask (e & f) b x`
+	 *
+	 * Compose effects
 	 */
 	andThen<F: {}, B>(next: (a: A) => EffTask<F, B, X>): EffTask<E & F, B, X> {
 		return new EffTask(env => this.runEff(env).andThen(a => next(a).runEff(env)));
+	}
+
+	/**
+	 * `handleError :: EffTask e a x ~> (x -> EffTask f a y) -> Efftask (e & f) a y`
+	 */
+	handleError<F: {}, Y>(handle: (x: X) => EffTask<F, A, Y>): EffTask<E & F, A, Y> {
+		return new EffTask(env => this.runEff(env).handleError(a => handle(a).runEff(env)));
 	}
 
 	/**
